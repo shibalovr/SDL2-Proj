@@ -1,4 +1,10 @@
 #include "Game.h"
+#include "TextureManager.h"
+#include "GameObject.h"
+
+GameObject* player;
+GameObject* flame;
+
 
 Game::Game(){}
 Game::~Game(){}
@@ -26,6 +32,8 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
     } else {
         isRunning = false;
     }
+    player = new GameObject("assets/player.png", renderer, 0, 0);
+    flame = new GameObject("assets/flame.png", renderer, 600, 0);
 }
 
 
@@ -44,9 +52,20 @@ void Game::handleEvents() {
 
 }
 
-void Game::update() {
-    cnt++;
-    printf("%d\n", cnt);
+void Game::update() {  
+    player->Update(); 
+    flame->Update();
+}
+
+void Game::render() {
+    SDL_RenderClear(renderer);
+    player->Render();
+    flame->Render();
+    SDL_RenderPresent(renderer);
+}
+
+bool Game::running() {
+    return isRunning;
 }
 
 void Game::clean() {
@@ -55,14 +74,3 @@ void Game::clean() {
     printf("Game cleaned!");
     SDL_Quit();
 }
-
-void Game::render() {
-    SDL_RenderClear(renderer);
-    SDL_RenderPresent(renderer);
-}
-
-bool Game::running() {
-    return isRunning;
-}
-
-
