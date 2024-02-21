@@ -15,7 +15,7 @@ int main(int argc, char* arg[]) {
     int frameTime;
 
     game = new Game();
-    game->init("SDL test", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 600, 0);
+    game->init("SDL test", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 600, 700, 0);
     while (game->running()) {
 
         frameStart = SDL_GetTicks();
