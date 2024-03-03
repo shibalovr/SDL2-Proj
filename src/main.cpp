@@ -1,7 +1,4 @@
-#include "src/Game.cpp"
-#include "src/TextureManager.cpp"
-#include "src/GameObject.cpp"
-
+#include "Game.h"
 
 Game *game = NULL;
 
@@ -15,7 +12,7 @@ int main(int argc, char* arg[]) {
     int frameTime;
 
     game = new Game();
-    game->init("SDL test", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 600, 700, 0);
+    game->init("SDL test", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1000, 600, 0);
     while (game->running()) {
 
         frameStart = SDL_GetTicks();

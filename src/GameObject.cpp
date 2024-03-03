@@ -9,7 +9,7 @@ GameObject::GameObject(const char* texturesheet, int x, int y) {
 GameObject::~GameObject(){}
 
 void GameObject::Update() {
-    // xpos++, ypos++;
+    xpos++, ypos++;
     srcR.x = 0, srcR.y = 0; // it doesn't matter 
     srcR.w = 32;
     srcR.h = 48;
