@@ -1,16 +1,16 @@
 #include "Game.h"
-#include "TextureManager.h"
-#include "GameObject.h"
 
-GameObject* player;
-GameObject* flame;
 
 SDL_Renderer* Game::renderer = nullptr;
+
+TextureManager* TextureManager::TM = nullptr;
 
 Game::Game(){}
 Game::~Game(){}
 
-void Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen) {
+Ninja* test = nullptr;
+
+void Game::init(const char* title, int xpos, int ypos, bool fullscreen) {
     int flags = 0;
     if (fullscreen) {
         flags = SDL_WINDOW_FULLSCREEN;
@@ -19,22 +19,27 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
     if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
         printf("Subsystems Initialised!\n");
 
-        window = SDL_CreateWindow(title, ypos, xpos, width, height, flags);
+        window = SDL_CreateWindow(title, ypos, xpos, WIDTH, HEIGHT, flags);
         if (window) {
             printf("Window created!\n");
         }
 
         Game::renderer = SDL_CreateRenderer(window, -1, 0);
         if (Game::renderer) {
-            SDL_SetRenderDrawColor(Game::renderer, 104, 176, 40, 255);
             printf("Renderer created\n");
         }
         isRunning = true;
     } else {
         isRunning = false;
     }
-    player = new GameObject("assets/player.png", 0, 0);
-    flame = new GameObject("assets/flame.png" ,600, 0);
+    TextureManager::TM = new TextureManager();
+    if (TextureManager::TM == nullptr) {
+        printf("Cannot create texture manager!\n");
+        return;
+    }
+    TextureManager::TM->Load("bg", "assets/backgrounds/bg.png");
+    TextureManager::TM->Load("ninja", "assets/sprites/character.png");
+    test = new Ninja(new Properties("ninja", 100, 200, 48, 48));
 }
 
 
@@ -54,14 +59,14 @@ void Game::handleEvents() {
 }
 
 void Game::update() {  
-    player->Update(); 
-    flame->Update();
+    test->Update();
 }
 
 void Game::render() {
     SDL_RenderClear(Game::renderer);
-    player->Render();
-    flame->Render();
+    
+    TextureManager::TM->draw("bg", 0, 0, 640, 350);
+    test->Draw();
     SDL_RenderPresent(Game::renderer);
 }
 
@@ -72,6 +77,7 @@ bool Game::running() {
 void Game::clean() {
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(Game::renderer);
+    TextureManager::TM->clean();
     printf("Game cleaned!");
     SDL_Quit();
 }

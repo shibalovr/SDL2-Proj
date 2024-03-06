@@ -4,29 +4,17 @@ Game *game = NULL;
 
 
 int main(int argc, char* arg[]) {
-
-    const int FPS = 60;
-    const int frameDelay = 1000 / FPS;
-
-    Uint32 frameStart;
-    int frameTime;
-
     game = new Game();
-    game->init("SDL test", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1000, 600, 0);
+    Transform tf(1,3);
+    tf.log();
+    game->init("Anh Manh dep trai vai loz", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0);
+    
     while (game->running()) {
-
-        frameStart = SDL_GetTicks();
-
         game->handleEvents();
         game->update();
         game->render();
-        frameTime = SDL_GetTicks() - frameStart;
-        
-        if (frameTime < frameDelay) {
-            SDL_Delay(frameDelay - frameTime);
-        }
     }
     game->clean();
-
+    
     return 0;
 }

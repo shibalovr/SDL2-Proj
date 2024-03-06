@@ -29,7 +29,7 @@ LDFLAGS =
 
 # Libraries to link
 
-LDLIBS = -l"SDL2" -l"SDL2_image"
+LDLIBS = -l"SDL2" -l"SDL2_image" -l"SDL2_ttf" -l"SDL2_mixer"
 
 LDFLAGS += -static-libgcc -static-libstdc++
 LDLIBS := -l"mingw32" -l"SDL2main" $(LDLIBS)
@@ -45,8 +45,9 @@ all: $(OUTPUT)
 $(OUTPUT): $(SRCS)
 	$(CXX) $(CXXFLAGS) $(LIB_PATH) -o $@ $^ $(LDLIBS) $(INCLUDES)
 
+.PHONY: run
+run: 
 	./$(BUILD_DIR)/$(EXEC)
-
 
 .PHONY: clean
 clean:
