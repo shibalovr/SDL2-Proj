@@ -15,7 +15,7 @@ void Game::init(const char* title, int xpos, int ypos, bool fullscreen) {
     if (fullscreen) {
         flags = SDL_WINDOW_FULLSCREEN;
     }
-    
+    quit = false;
     if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
         printf("Subsystems Initialised!\n");
 
@@ -28,9 +28,8 @@ void Game::init(const char* title, int xpos, int ypos, bool fullscreen) {
         if (Game::renderer) {
             printf("Renderer created\n");
         }
-        isRunning = true;
     } else {
-        isRunning = false;
+        quit = true;
     }
     TextureManager::TM = new TextureManager();
     if (TextureManager::TM == nullptr) {
@@ -49,7 +48,7 @@ void Game::handleEvents() {
     switch (event.type)
     {
     case SDL_QUIT:
-        isRunning = false;
+        quit = true;
         break;
     
     default:
@@ -70,8 +69,8 @@ void Game::render() {
     SDL_RenderPresent(Game::renderer);
 }
 
-bool Game::running() {
-    return isRunning;
+bool Game::Quit(){ 
+    return quit;
 }
 
 void Game::clean() {

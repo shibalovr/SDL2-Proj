@@ -26,12 +26,13 @@ public:
     void render();
     void clean();
     
-    bool running();
+    bool Quit();
     static SDL_Renderer* renderer;
     int cnt = 0;
+    bool quit;
 private:
     
-    bool isRunning;
+    
     SDL_Window* window;
 };
 
