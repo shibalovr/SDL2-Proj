@@ -1,15 +1,26 @@
 #include <Input.h>
 
-Input::Input() {
-    
+Input* Input::s_Instance = nullptr;
+
+Input::Input(){
+    m_KeyStates = SDL_GetKeyboardState(nullptr);
+}
+
+Input* Input::getInstance(){
+    if (!s_Instance) {
+        s_Instance = new Input();
+    }
+
+    return s_Instance;
 }
 
 void Input::Listen() {
     SDL_Event e;
     while(SDL_PollEvent(&e)) {
         switch(e.type) {
-            case SDL_QUIT:
-                quit = true;
+            case SDL_QUIT: 
+                Game::getInstance()->Quit();
+                break;
             case SDL_KEYDOWN: KeyDown(); break;
             case SDL_KEYUP: KeyUp(); break;
         }

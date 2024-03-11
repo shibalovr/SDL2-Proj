@@ -5,18 +5,9 @@
 
 #include <Vector2d.h>
 
-#define UNI_MASS 1.0f
-#define GRAVITY 9.8f
-
 class RigidBody {
     public:
-        RigidBody(){
-            m_Mass = UNI_MASS;
-            m_Gravity = GRAVITY;
-        }
-        // SET Gravity and Mass;
-        inline void SetMass(float mass) {m_Mass = mass;}
-        inline void SetGravity(float Gravity) {m_Gravity = Gravity;}
+        RigidBody(){}
 
         // Force
         inline void ApplyForce(Vector2d F) {m_Force = F;}
@@ -29,8 +20,8 @@ class RigidBody {
         inline void UnSetFriction(){m_Friction = Vector2d(0,0);}
 
         void Update(float dt) {
-            m_Acceleration.x = (m_Force.x + m_Friction.x) / m_Mass; // horizontal
-            m_Acceleration.y = m_Gravity + m_Force.y/m_Mass; // vertical
+            m_Acceleration.x = m_Force.x; // horizontal
+            m_Acceleration.y = m_Force.y; // vertical
             m_Velocity = m_Acceleration*dt;
             m_Position = m_Velocity*dt;
         } 

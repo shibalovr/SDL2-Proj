@@ -1,14 +1,19 @@
 #include "Game.h"
 
-
+Game* Game::s_Instance = nullptr;
 SDL_Renderer* Game::renderer = nullptr;
+Ninja* test = nullptr;
 
-TextureManager* TextureManager::TM = nullptr;
 
 Game::Game(){}
-Game::~Game(){}
 
-Ninja* test = nullptr;
+Game* Game::getInstance() {
+    if (!s_Instance) {
+        s_Instance = new Game();
+    }
+    return s_Instance;
+}
+
 
 void Game::init(const char* title, int xpos, int ypos, bool fullscreen) {
     int flags = 0;
@@ -31,52 +36,39 @@ void Game::init(const char* title, int xpos, int ypos, bool fullscreen) {
     } else {
         quit = true;
     }
-    TextureManager::TM = new TextureManager();
-    if (TextureManager::TM == nullptr) {
-        printf("Cannot create texture manager!\n");
-        return;
-    }
-    TextureManager::TM->Load("bg", "assets/backgrounds/bg.png");
-    TextureManager::TM->Load("ninja", "assets/sprites/character.png");
-    test = new Ninja(new Properties("ninja", 100, 200, 48, 48));
+    
+    TextureManager::GetInstance()->Load("bg", "assets/backgrounds/bg.png");
+    TextureManager::GetInstance()->Load("character_idle", "assets/sprites/Character_idle.png");
+    TextureManager::GetInstance()->Load("character_walk", "assets/sprites/Character_walk.png");
+    test = new Ninja(new Properties("character_idle", 100, 200, 64, 64));
 }
 
 
 void Game::handleEvents() {
-    SDL_Event event;
-    SDL_PollEvent(&event);
-    switch (event.type)
-    {
-    case SDL_QUIT:
-        quit = true;
-        break;
-    
-    default:
-        break;
-    }
-
+    Input::getInstance()->Listen();
 }
 
 void Game::update() {  
+    
     test->Update();
 }
 
 void Game::render() {
     SDL_RenderClear(Game::renderer);
     
-    TextureManager::TM->draw("bg", 0, 0, 640, 350);
+    TextureManager::GetInstance()->draw("bg", 0, 0, 640, 360);
     test->Draw();
     SDL_RenderPresent(Game::renderer);
 }
 
-bool Game::Quit(){ 
-    return quit;
+void Game::Quit(){ 
+    quit = true;
 }
 
 void Game::clean() {
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(Game::renderer);
-    TextureManager::TM->clean();
+    TextureManager::GetInstance()->clean();
     printf("Game cleaned!");
     SDL_Quit();
 }

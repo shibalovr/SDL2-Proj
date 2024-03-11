@@ -8,18 +8,20 @@
 
 class Input {
     public:
+        static Input* getInstance();
+
         SDL_Event e;
         void Listen();
-        bool GetKeyDown(SDL_Scancodekey);
+        bool GetKeyDown(SDL_Scancode key);
         
     private:
-        Input* getInput;
+        Input();
         
-        Input(){};
         void KeyUp();
         void KeyDown();
 
         const Uint8* m_KeyStates;
+        static Input* s_Instance;
 };
 
 #endif

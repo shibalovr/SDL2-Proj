@@ -1,6 +1,15 @@
 #include "TextureManager.h"
 
+TextureManager* TextureManager::s_Instance = nullptr;
 
+TextureManager::TextureManager(){}
+
+TextureManager* TextureManager::GetInstance() {
+    if (!s_Instance) {
+        s_Instance = new TextureManager();
+    }
+    return s_Instance;
+}
 
 bool TextureManager::Load(std::string id, std::string file) {
     SDL_Surface* tmpSurface = IMG_Load(file.c_str());
@@ -18,8 +27,6 @@ void TextureManager::drop(std::string id) {
     SDL_DestroyTexture(m_TextureMap[id]);
     m_TextureMap.erase(id);
 }
-
-TextureManager::TextureManager(){}
 
 void TextureManager::clean() {
     auto it = m_TextureMap.begin();

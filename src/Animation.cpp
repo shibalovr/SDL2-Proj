@@ -2,7 +2,7 @@
 #include <TextureManager.h>
 
 void Animation::Draw(float x, float y, int width, int height) {
-    TextureManager::TM->drawframe(m_TextureId, x, y, width, height, m_SpriteRow, m_SpriteFrame, m_Flip);
+    TextureManager::GetInstance()->drawframe(m_TextureId, x, y, width, height, m_SpriteRow, m_SpriteFrame, m_Flip);
 }
 
 void Animation::setProps(std::string TextureId, int spriteRow, int frameCount, int anim_speed, SDL_RendererFlip flip) {

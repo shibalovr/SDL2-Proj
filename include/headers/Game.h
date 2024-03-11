@@ -11,14 +11,16 @@
 #include "Vector2d.h"
 #include "Transform.h"
 #include "Ninja.h"
+#include "Input.h"
 
-const int WIDTH = 700;
+const int WIDTH = 1600;
 const int HEIGHT = 900;
 
 class Game{
 public:
-    Game();
-    ~Game();
+    
+
+    static Game* getInstance();
 
     void init(const char* title, int xpos, int ypos, bool fullscreen);
     void handleEvents();
@@ -26,13 +28,13 @@ public:
     void render();
     void clean();
     
-    bool Quit();
+    void Quit();
     static SDL_Renderer* renderer;
     int cnt = 0;
     bool quit;
 private:
-    
-    
+    Game();
+    static Game* s_Instance;
     SDL_Window* window;
 };
 

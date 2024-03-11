@@ -32,7 +32,6 @@ class Vector2d {
             return Vector2d(x /divider , y * divider);
         }
     private:
-
 };
 
 #endif

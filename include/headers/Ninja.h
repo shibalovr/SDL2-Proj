@@ -7,6 +7,12 @@
 #include "Animation.h"
 #include "RigidBody.h"
 
+enum Direction {
+    UP,
+    DOWN,
+    RIGHT,
+    LEFT
+};
 
 class Ninja : public Character
 {
@@ -18,8 +24,7 @@ class Ninja : public Character
         virtual void Clean();
 
     private:
-        // int m_Row, m_Frame, m_FrameCount;
-        // int m_aniSpeed;
+        Direction curDirection = DOWN; 
         Animation* m_Animation;
         RigidBody* m_RigidBody;
 };

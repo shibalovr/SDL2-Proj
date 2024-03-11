@@ -1,18 +1,15 @@
 #include "Game.h"
 
-Game *game = NULL;
-
 
 int main(int argc, char* arg[]) {
-    game = new Game();
-    game->init("Anh Manh dep trai vai loz", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0);
+    Game::getInstance()->init("Anh Manh dep trai vai loz", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0);
     
-    while (!game->Quit()) {
-        game->handleEvents();
-        game->update();
-        game->render();
+    while (!Game::getInstance()->quit) {
+        Game::getInstance()->handleEvents();
+        Game::getInstance()->update();
+        Game::getInstance()->render();
     }
-    game->clean();
+    Game::getInstance()->clean();
     
     return 0;
 }
