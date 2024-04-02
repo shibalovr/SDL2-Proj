@@ -16,6 +16,10 @@ class Input {
         
     private:
         Input();
+        ~Input() {
+            delete m_KeyStates;
+            delete s_Instance;
+        }
         
         void KeyUp();
         void KeyDown();

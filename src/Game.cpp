@@ -1,9 +1,9 @@
 #include "Game.h"
 
+
 Game* Game::s_Instance = nullptr;
 SDL_Renderer* Game::renderer = nullptr;
-Ninja* test = nullptr;
-
+Ninja* charac = nullptr;
 
 Game::Game(){}
 
@@ -36,11 +36,13 @@ void Game::init(const char* title, int xpos, int ypos, bool fullscreen) {
     } else {
         quit = true;
     }
-    
-    TextureManager::GetInstance()->Load("bg", "assets/backgrounds/bg.png");
     TextureManager::GetInstance()->Load("character_idle", "assets/sprites/Character_idle.png");
     TextureManager::GetInstance()->Load("character_walk", "assets/sprites/Character_walk.png");
-    test = new Ninja(new Properties("character_idle", 100, 200, 64, 64));
+    TextureManager::GetInstance()->Load("character_roll", "assets/sprites/Character_roll.png");
+    TextureManager::GetInstance()->Load("character_attack", "assets/sprites/Character_attack.png");
+    TextureManager::GetInstance()->Load("character_block", "assets/sprites/Character_block.png");
+    charac = new Ninja(new Properties("character_idle", 600, 700, 64, 64));
+    Map::GetInstance()->LoadTileSets("assets/map/tileset.png");
 }
 
 
@@ -49,15 +51,15 @@ void Game::handleEvents() {
 }
 
 void Game::update() {  
-    
-    test->Update();
+    float dt = Timer::getInstance()->getDeltaTime();
+    charac->Update(dt);
 }
 
 void Game::render() {
     SDL_RenderClear(Game::renderer);
-    
-    TextureManager::GetInstance()->draw("bg", 0, 0, 640, 360);
-    test->Draw();
+    Map::GetInstance()->LoadMap(0, "assets/map/bg.csv");
+    Map::GetInstance()->LoadMap(0, "assets/map/object.csv");
+    charac->Draw();
     SDL_RenderPresent(Game::renderer);
 }
 
@@ -69,6 +71,8 @@ void Game::clean() {
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(Game::renderer);
     TextureManager::GetInstance()->clean();
+    Map::GetInstance()->Clean();
+    delete charac;
     printf("Game cleaned!");
     SDL_Quit();
 }

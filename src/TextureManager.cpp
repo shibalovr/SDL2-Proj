@@ -37,6 +37,13 @@ void TextureManager::clean() {
     m_TextureMap.clear();
 }
 
+void TextureManager::drawTex(SDL_Texture* tex, int row, int col,  int x, int y, int width, int height ,SDL_RendererFlip flip){
+    SDL_Rect src = {col*16, row*16, width, height};
+    SDL_Rect dist = {x, y, 40, 40};
+    SDL_RenderCopyEx(Game::renderer, tex, &src, &dist, 0, NULL, flip);
+}
+
+
 void TextureManager::draw(std::string id, int x, int y, int width, int height, SDL_RendererFlip flip) {
     SDL_Rect srcRect = {0,0, width, height};
     SDL_Rect disRect = {x,y, width, height};

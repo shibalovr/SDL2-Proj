@@ -8,6 +8,10 @@
 class Transform {
     public:
         float x, y;
+        Transform() {
+            x = 0;
+            y = 0;
+        }
         
         Transform(float X = 0, float Y = 0) {
             x = X; 

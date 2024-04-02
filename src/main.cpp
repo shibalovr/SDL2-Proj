@@ -8,6 +8,7 @@ int main(int argc, char* arg[]) {
         Game::getInstance()->handleEvents();
         Game::getInstance()->update();
         Game::getInstance()->render();
+        Timer::getInstance()->Tick();
     }
     Game::getInstance()->clean();
     

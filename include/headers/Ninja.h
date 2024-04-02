@@ -7,6 +7,11 @@
 #include "Animation.h"
 #include "RigidBody.h"
 
+enum AnimationState {
+    ANIMATION_PLAYING,
+    ANIMATION_STOPPED
+};
+
 enum Direction {
     UP,
     DOWN,
@@ -18,11 +23,13 @@ class Ninja : public Character
 {
     public:
         Ninja(Properties* props);
-
-        virtual void Draw();
-        virtual void Update();
-        virtual void Clean();
-
+        ~Ninja() {
+            delete m_Animation;
+            delete m_RigidBody;
+        }
+        void Draw();
+        void Update(float dt);
+        void Clean();
     private:
         Direction curDirection = DOWN; 
         Animation* m_Animation;

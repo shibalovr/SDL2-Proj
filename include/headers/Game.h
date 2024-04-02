@@ -7,14 +7,19 @@
 #include <string>
 #include <algorithm>
 #include <map>
+#include <fstream>
+#include <vector>
+#include <sstream>
 #include "TextureManager.h"
 #include "Vector2d.h"
 #include "Transform.h"
 #include "Ninja.h"
 #include "Input.h"
+#include "Timer.h"
+#include "Map.h"
 
-const int WIDTH = 1600;
-const int HEIGHT = 900;
+const int WIDTH = 1200;
+const int HEIGHT = 800;
 
 class Game{
 public:
@@ -34,6 +39,9 @@ public:
     bool quit;
 private:
     Game();
+    ~Game() {
+        delete s_Instance;
+    }
     static Game* s_Instance;
     SDL_Window* window;
 };
