@@ -17,6 +17,8 @@
 #include "Input.h"
 #include "Timer.h"
 #include "Map.h"
+#include "Camera.h"
+
 
 const int WIDTH = 1200;
 const int HEIGHT = 800;

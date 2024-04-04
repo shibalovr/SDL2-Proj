@@ -3,7 +3,7 @@
  <editorsettings>
   <export target="a.csv" format="csv"/>
  </editorsettings>
- <tileset firstgid="1" name="DungeonTileSet" tilewidth="16" tileheight="16" tilecount="80" columns="16">
+ <tileset firstgid="1" name="DungeonTileSet" tilewidth="16" tileheight="16" tilecount="0" columns="16">
   <image source="tileset_brown.png" width="256" height="80"/>
  </tileset>
  <layer id="1" name="Background" width="60" height="20" opacity="0.9">

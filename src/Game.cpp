@@ -43,6 +43,7 @@ void Game::init(const char* title, int xpos, int ypos, bool fullscreen) {
     TextureManager::GetInstance()->Load("character_block", "assets/sprites/Character_block.png");
     charac = new Ninja(new Properties("character_idle", 600, 700, 64, 64));
     Map::GetInstance()->LoadTileSets("assets/map/tileset.png");
+    Camera::GetInstance()->setTarget(charac->GetOrigin());
 }
 
 
@@ -53,12 +54,13 @@ void Game::handleEvents() {
 void Game::update() {  
     float dt = Timer::getInstance()->getDeltaTime();
     charac->Update(dt);
+    Camera::GetInstance()->Update(dt);
 }
 
 void Game::render() {
     SDL_RenderClear(Game::renderer);
-    Map::GetInstance()->LoadMap(0, "assets/map/bg.csv");
-    Map::GetInstance()->LoadMap(0, "assets/map/object.csv");
+    Map::GetInstance()->LoadMap(0, "assets/map/map1_bg.csv");
+    // Map::GetInstance()->LoadMap(1, "assets/map/object.csv");
     charac->Draw();
     SDL_RenderPresent(Game::renderer);
 }

@@ -27,6 +27,7 @@ class Ninja : public Character
             delete m_Animation;
             delete m_RigidBody;
         }
+        inline Point* GetOrigin() {return m_Origin;}
         void Draw();
         void Update(float dt);
         void Clean();

@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef vector2d_h
 #define vector2d_h
 

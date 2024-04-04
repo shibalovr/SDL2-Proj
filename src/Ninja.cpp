@@ -133,9 +133,12 @@ void Ninja::Update(float dt) {
     
 
 
-    // 
+
     m_RigidBody->Update(dt);
     m_Transform->translateX(m_RigidBody->getPosition().x);
     m_Transform->translateY(m_RigidBody->getPosition().y);
+
+    m_Origin->x = m_Transform->x + m_Width/2;
+    m_Origin->y = m_Transform->y + m_Height/2;
     m_Animation->Update();
 }

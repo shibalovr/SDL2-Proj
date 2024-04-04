@@ -12,39 +12,58 @@
         "": {
             "scaleInEditor": 1
         },
+        "#Tileset": {
+            "scaleInDock": 1.5
+        },
         "#tileset": {
             "scaleInDock": 1
         },
         "map.tmx": {
             "scale": 1.5,
-            "selectedLayer": 1,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 234.66666666666663,
-                "y": 105.99999999999997
+                "x": 23.333333333333314,
+                "y": 267.99999999999994
             }
         },
         "map.tmx#DungeonTileSet": {
             "scaleInDock": 1.5,
             "scaleInEditor": 1
         },
+        "map.tmx#tile": {
+            "scaleInDock": 1
+        },
         "map.tmx#tileset": {
             "scaleInDock": 1
+        },
+        "untitled.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 848.4848484848485,
+                "y": 442.4242424242425
+            }
+        },
+        "untitled.tmx#Tileset": {
+            "scaleInDock": 1.5
         }
     },
     "last.exportedFilePath": "F:/SDL2-Proj/assets/map",
     "last.externalTilesetPath": "F:/SDL2-Proj/assets/map",
     "last.imagePath": "F:/SDL2-Proj/assets/map",
-    "map.height": 20,
+    "map.height": 40,
     "map.lastUsedExportFilter": "CSV files (*.csv)",
     "map.lastUsedFormat": "tmx",
-    "map.tileHeight": 32,
-    "map.tileWidth": 40,
-    "map.width": 60,
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 120,
     "openFiles": [
-        "map.tmx"
+        "map.tmx",
+        "untitled.tmx"
     ],
     "project": "mapPrj.tiled-project",
     "recentFiles": [
+        "untitled.tmx",
         "map.tmx"
     ],
     "tileset.embedInMap": true,

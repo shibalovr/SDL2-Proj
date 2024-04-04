@@ -5,6 +5,7 @@
 
 #include "Game.h"
 #include <string>
+#include "Point.h"
 
 struct Properties {
     public:
@@ -32,6 +33,8 @@ class Character
         }
         Character(Properties* props){
             m_Transform = new Transform(props->X, props->Y);
+            m_Origin->x = props->X + props->m_width/2;
+            m_Origin->y = props->X + props->m_height/2;
             m_TextureId = props->m_TextureId;
             m_Width = props->m_width;
             m_Height = props->m_height;
@@ -42,7 +45,8 @@ class Character
         virtual void Clean() = 0;
 
     protected:
-        std::string c_Name;
+        // std::string c_Name;
+        Point* m_Origin;
         Transform* m_Transform;
         int m_Width, m_Height;
         std::string m_TextureId;
