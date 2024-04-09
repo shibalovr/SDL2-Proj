@@ -16,7 +16,7 @@ void Ninja::Draw(){
     if (m_Transform == nullptr) {
         printf("m_transform error!\n");
     } else {
-        m_Transform->log();
+        // m_Transform->log();
     }
     // printf("Ninja drawed!\n");
 }
@@ -41,7 +41,6 @@ void Ninja::Update(float dt) {
     case RIGHT:
         m_Animation->setProps("character_idle", 3, 4, 150);
         break;
-    
     }
     // unset force
     m_RigidBody->UnSetForce();

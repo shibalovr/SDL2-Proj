@@ -38,6 +38,10 @@ class Character
             m_TextureId = props->m_TextureId;
             m_Width = props->m_width;
             m_Height = props->m_height;
+            // m_Rect.x = m_Transform->x;
+            // m_Rect.y = m_Transform->y;
+            // m_Rect.w = m_Width;
+            // m_Rect.h = m_Height;
             m_Flip = props->flip;
         }
         virtual void Draw() = 0;
@@ -45,7 +49,6 @@ class Character
         virtual void Clean() = 0;
 
     protected:
-        // std::string c_Name;
         Point* m_Origin;
         Transform* m_Transform;
         int m_Width, m_Height;

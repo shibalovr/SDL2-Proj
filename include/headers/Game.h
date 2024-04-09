@@ -18,6 +18,7 @@
 #include "Timer.h"
 #include "Map.h"
 #include "Camera.h"
+#include "Collision.h"
 
 
 const int WIDTH = 1200;

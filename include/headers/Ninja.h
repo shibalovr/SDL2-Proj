@@ -28,6 +28,14 @@ class Ninja : public Character
             delete m_RigidBody;
         }
         inline Point* GetOrigin() {return m_Origin;}
+        inline SDL_Rect GetRect() {
+            SDL_Rect tmp;
+            tmp.x = m_Transform->x;
+            tmp.y = m_Transform->y;
+            tmp.w = m_Width;
+            tmp.h = m_Height;
+            return tmp;
+        }
         void Draw();
         void Update(float dt);
         void Clean();
