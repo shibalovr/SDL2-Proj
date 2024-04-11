@@ -7,18 +7,18 @@ Ninja::Ninja(Properties* props) : Character(props)
 {
     m_RigidBody = new RigidBody();
     m_Animation = new Animation();
-    // m_HitBox = new hitBox();
+    m_HitBox = new HitBox();
+    m_HitBox->SetBuffer(-32 * m_scalar,-24 * m_scalar, 64 * m_scalar, 48 * m_scalar); // wall hit box
     m_Animation->setProps(m_TextureId, 0, 4, 150);
     printf("Created character success!\n");
 }
 
 void Ninja::Draw(){
-    m_Animation->Draw(m_Transform->x, m_Transform->y, m_Width, m_Height);
+    m_Animation->Draw(m_Transform->x, m_Transform->y, m_Width, m_Height, m_scalar);
     Vector2d cam = Camera::GetInstance()->getPosition();
-    SDL_Rect box = m_HitBox;
+    SDL_Rect box = m_HitBox->Get();
     box.x -= cam.x;
     box.y -= cam.y;
-
     if (m_Transform == nullptr) {
         printf("m_transform error!\n");
     } else {
@@ -26,7 +26,7 @@ void Ninja::Draw(){
     }
     SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, 255);
     SDL_RenderDrawRect(Game::renderer, &box);
-    printf("%d, %d\n", box.x, box.y);
+    // printf("%d, %d\n", box.x, box.y);
     SDL_SetRenderDrawColor(Game::renderer, 0, 0, 0, 255);
 }
 
@@ -36,6 +36,9 @@ void Ninja::Clean() {
 
 void Ninja::Update(float dt) {
     // current states
+    m_lastSafePosition.x = m_Transform->x;
+    m_lastSafePosition.y = m_Transform->y;
+
     switch (curDirection)
     {
     case DOWN:
@@ -138,22 +141,18 @@ void Ninja::Update(float dt) {
             break;
         }
     }
-    
-
-
 
     m_RigidBody->Update(dt);
-
-    m_HitBox.x = m_Transform->x;
-    m_HitBox.y = m_Transform->y;
-
     m_Transform->translateX(m_RigidBody->getPosition().x);
     m_Transform->translateY(m_RigidBody->getPosition().y);
+    m_HitBox->Set(m_Transform->x, m_Transform->y, m_Width, m_Height, m_scalar);
+    if (ColHandler::GetInstance()->CheckCollideMap(m_HitBox->Get(), 40, 40)) {
+        m_Transform->x = m_lastSafePosition.x;
+        m_Transform->y = m_lastSafePosition.y;
+    }
 
     m_Origin->x = m_Transform->x + m_Width/2;
-    m_Origin->y = m_Transform->y + m_Height/2;
-
-    
+    m_Origin->y = m_Transform->y + m_Height/2;  
 
     m_Animation->Update();
 }

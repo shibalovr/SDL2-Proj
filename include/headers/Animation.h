@@ -13,7 +13,7 @@ class Animation {
 
         void Update();
 
-        void Draw(float x, float y, int width, int height);
+        void Draw(float x, float y, int width, int height, int scalar);
 
         void setProps(std::string TextureId, int spriteRow, int frameCount, int anim_speed, SDL_RendererFlip flip=SDL_FLIP_NONE);
     private:

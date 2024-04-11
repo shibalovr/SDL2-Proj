@@ -1,8 +1,8 @@
 #include <Animation.h>
 #include <TextureManager.h>
 
-void Animation::Draw(float x, float y, int width, int height) {
-    TextureManager::GetInstance()->drawframe(m_TextureId, x, y, width, height, m_SpriteRow, m_SpriteFrame, m_Flip);
+void Animation::Draw(float x, float y, int width, int height, int scalar) {
+    TextureManager::GetInstance()->drawframe(m_TextureId, x, y, width, height, m_SpriteRow, m_SpriteFrame, scalar, m_Flip);
     // printf("location: %d, %d\n", x ,y);
 }
 

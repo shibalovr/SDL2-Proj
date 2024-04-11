@@ -51,9 +51,9 @@ void TextureManager::draw(std::string id, int x, int y, int width, int height, S
     SDL_RenderCopyEx(Game::renderer, m_TextureMap[id], &srcRect, &disRect, 0, NULL, flip);
 }
 
-void TextureManager::drawframe(std::string id, int x, int y, int width, int height, int row, int frame, SDL_RendererFlip flip) {
+void TextureManager::drawframe(std::string id, int x, int y, int width, int height, int row, int frame, int scalar, SDL_RendererFlip flip) {
     SDL_Rect srcRect = {width * frame, height * row , width, height}; // xpos  = width*frame, y pos = height * row
     Vector2d cam = Camera::GetInstance()->getPosition();
-    SDL_Rect disRect = {int(x-cam.x), int(y-cam.y), width, height};
+    SDL_Rect disRect = {int(x-cam.x), int(y-cam.y), width*scalar, height*scalar};
     SDL_RenderCopyEx(Game::renderer, m_TextureMap[id], &srcRect, &disRect, 0, NULL, flip);
 }

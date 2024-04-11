@@ -16,7 +16,7 @@ public:
 
     void draw(std::string id, int x, int y, int width, int height, SDL_RendererFlip flip=SDL_FLIP_NONE);
 
-    void drawframe(std::string id, int x, int y, int width, int height, int row, int frame, SDL_RendererFlip flip=SDL_FLIP_NONE);
+    void drawframe(std::string id, int x, int y, int width, int height, int row, int frame, int scalar, SDL_RendererFlip flip=SDL_FLIP_NONE);
 private:
     TextureManager();   
     ~TextureManager() {

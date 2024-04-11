@@ -7,7 +7,7 @@
 #include "Animation.h"
 #include "RigidBody.h"
 #include "Collision.h"
-// #include "HitBox.h"
+#include "HitBox.h"
 
 enum AnimationState {
     ANIMATION_PLAYING,
@@ -31,7 +31,7 @@ class Ninja : public Character
             // delete m_HitBox;
         }
         inline Point* GetOrigin() {return m_Origin;}
-        inline SDL_Rect getHitBox() {return m_HitBox;}
+        inline SDL_Rect getHitBox() {return m_HitBox->Get();}
         void Draw();
         void Update(float dt);
         void Clean();
@@ -39,8 +39,8 @@ class Ninja : public Character
         Direction curDirection = DOWN; 
         Animation* m_Animation;
         RigidBody* m_RigidBody;
-        SDL_Rect m_HitBox = {(int)m_Transform->x, (int)m_Transform->y, m_Width, m_Height};
-        Point lastSafePosition;
+        HitBox* m_HitBox; // currently it is the wall hit box, add more hitbox for enemy, item,...
+        Point m_lastSafePosition;
 
 };
 

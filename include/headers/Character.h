@@ -9,13 +9,14 @@
 
 struct Properties {
     public:
-        Properties(std::string TextureId, int x, int y, int width, int height, SDL_RendererFlip Flip = SDL_FLIP_NONE) {
+        Properties(std::string TextureId, int x, int y, int width, int height,int scalar, SDL_RendererFlip Flip = SDL_FLIP_NONE) {
             X = x;
             Y = y;
             m_TextureId = TextureId;
             flip = Flip;
             m_width = width;
             m_height = height;
+            m_scalar = scalar;
         }
 
     public:
@@ -23,6 +24,7 @@ struct Properties {
         std::string m_TextureId;
         SDL_RendererFlip flip;
         int m_width, m_height;
+        int m_scalar;
 };
 
 class Character
@@ -41,12 +43,14 @@ class Character
             m_Width = props->m_width;
             m_Height = props->m_height;
             m_Flip = props->flip;
+            m_scalar = props->m_scalar;
         }
         virtual void Draw() = 0;
         virtual void Update(float dt) = 0;
         virtual void Clean() = 0;
 
     protected:
+        int m_scalar;
         Point* m_Origin;
         Transform* m_Transform;
         int m_Width, m_Height;
