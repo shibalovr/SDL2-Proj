@@ -7,6 +7,7 @@ Ninja::Ninja(Properties* props) : Character(props)
 {
     m_RigidBody = new RigidBody();
     m_Animation = new Animation();
+    // m_HitBox = new hitBox();
     m_Animation->setProps(m_TextureId, 0, 4, 150);
     printf("Created character success!\n");
 }

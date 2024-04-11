@@ -24,12 +24,15 @@ class Timer {
         }
 
     private:
-        Timer();
+        Timer() {
+            m_DeltaTime = 0.0f;
+            m_LastTime = 0.0f;
+        }
         ~Timer() {
             delete s_Instance;
         }
         static Timer* s_Instance;
-        float  m_DeltaTime;
+        float m_DeltaTime;
         float m_LastTime;
 };
 

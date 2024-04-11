@@ -38,3 +38,29 @@ ColHandler* ColHandler::GetInstance() {
     }
     return s_Instance;
 }
+
+
+bool ColHandler::CheckCollideMap(const SDL_Rect& rectA,int twidth, int theight) {
+    for (Point p : Collider) { // Point p.x = col, p.y = row;
+        SDL_Rect tmp;
+        tmp.x = p.x * twidth;
+        tmp.y = p.y * theight;
+        tmp.w = twidth;
+        tmp.h = theight;
+        if (CheckCollide(rectA, tmp)) return true;
+    }
+    return false;
+}
+
+bool ColHandler::CheckCollide(const SDL_Rect& rectA, const SDL_Rect& rectB) {
+    if (
+        rectA.x + rectA.w >= rectB.x &&
+        rectA.y + rectA.h >= rectB.y &&
+        rectB.x + rectB.w >= rectA.x &&
+        rectB.y + rectB.h >= rectA.y
+    ) {
+        return true;
+    } else {
+        return false;
+    }
+}

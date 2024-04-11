@@ -24,3 +24,4 @@ void Camera::Update(float dt) {
         m_Position = Vector2d(m_ViewBox.x, m_ViewBox.y);
     }
 }
+

@@ -42,9 +42,9 @@ void Game::init(const char* title, int xpos, int ypos, bool fullscreen) {
     TextureManager::GetInstance()->Load("character_attack", "assets/sprites/Character_attack.png");
     TextureManager::GetInstance()->Load("character_block", "assets/sprites/Character_block.png");
     charac = new Ninja(new Properties("character_idle", 600, 100, 64, 64));
+    printf("hi\n");
     Map::GetInstance()->LoadTileSets("assets/map/tileset.png");
     Camera::GetInstance()->setTarget(charac->GetOrigin());
-    
     // ColHandler::GetInstance()->LoadCollider("assets/map/map1_Collider.csv");
 }
 
@@ -76,8 +76,8 @@ void Game::clean() {
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(Game::renderer);
     TextureManager::GetInstance()->clean();
-    Map::GetInstance()->Clean();
     delete charac;
+    Map::GetInstance()->Clean();
     printf("Game cleaned!");
     SDL_Quit();
 }

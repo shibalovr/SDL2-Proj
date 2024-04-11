@@ -6,6 +6,7 @@
 #include "Character.h"
 #include "Animation.h"
 #include "RigidBody.h"
+// #include "HitBox.h"
 
 enum AnimationState {
     ANIMATION_PLAYING,
@@ -26,6 +27,7 @@ class Ninja : public Character
         ~Ninja() {
             delete m_Animation;
             delete m_RigidBody;
+            // delete m_HitBox;
         }
         inline Point* GetOrigin() {return m_Origin;}
         inline SDL_Rect GetRect() {
@@ -43,6 +45,7 @@ class Ninja : public Character
         Direction curDirection = DOWN; 
         Animation* m_Animation;
         RigidBody* m_RigidBody;
+        // int z;
 };
 
 #endif

@@ -17,11 +17,15 @@ class Camera {
         inline SDL_Rect getViewBox() {return m_ViewBox;}
         inline Vector2d getPosition() {return m_Position;}
         inline void setTarget(Point* target) {m_Target = target;}
-
     private:
         Camera() {
             m_ViewBox = {0, 0, 1200, 800};
         };
+
+        ~Camera() {
+            delete m_Target;
+            delete s_Instance;
+        }
         Point* m_Target; // the middle point of the frame
         Vector2d m_Position; // current start point of the camera;
 

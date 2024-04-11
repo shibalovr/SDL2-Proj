@@ -12,9 +12,12 @@ class ColHandler {
         void LoadCollider(std::string path);
         bool CheckCollide(const SDL_Rect& rectA, const SDL_Rect& rectB);
 
-        bool CheckCollideMap(const SDL_Rect& rectA);
+        bool CheckCollideMap(const SDL_Rect& rectA, int twidth, int theight);
     private:
-        ColHandler(){};
+        ColHandler(){}
+        ~ColHandler() {
+            delete s_Instance;
+        }
         static ColHandler* s_Instance;
         std::vector<Point> Collider;
 
