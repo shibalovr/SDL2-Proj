@@ -14,12 +14,20 @@ Ninja::Ninja(Properties* props) : Character(props)
 
 void Ninja::Draw(){
     m_Animation->Draw(m_Transform->x, m_Transform->y, m_Width, m_Height);
+    Vector2d cam = Camera::GetInstance()->getPosition();
+    SDL_Rect box = m_HitBox;
+    box.x -= cam.x;
+    box.y -= cam.y;
+
     if (m_Transform == nullptr) {
         printf("m_transform error!\n");
     } else {
         // m_Transform->log();
     }
-    // printf("Ninja drawed!\n");
+    SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, 255);
+    SDL_RenderDrawRect(Game::renderer, &box);
+    printf("%d, %d\n", box.x, box.y);
+    SDL_SetRenderDrawColor(Game::renderer, 0, 0, 0, 255);
 }
 
 void Ninja::Clean() {
@@ -135,10 +143,17 @@ void Ninja::Update(float dt) {
 
 
     m_RigidBody->Update(dt);
+
+    m_HitBox.x = m_Transform->x;
+    m_HitBox.y = m_Transform->y;
+
     m_Transform->translateX(m_RigidBody->getPosition().x);
     m_Transform->translateY(m_RigidBody->getPosition().y);
 
     m_Origin->x = m_Transform->x + m_Width/2;
     m_Origin->y = m_Transform->y + m_Height/2;
+
+    
+
     m_Animation->Update();
 }

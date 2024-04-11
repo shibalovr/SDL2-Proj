@@ -29,7 +29,6 @@ void ColHandler::LoadCollider(std::string path) {
     for (Point x : Collider) {
         x.Log();
     }
-
 }
 
 ColHandler* ColHandler::GetInstance() {

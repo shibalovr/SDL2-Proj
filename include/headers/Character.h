@@ -34,8 +34,9 @@ class Character
         }
         Character(Properties* props){
             m_Transform = new Transform(props->X, props->Y);
-            m_Origin->x = props->X + props->m_width/2;
-            m_Origin->y = props->X + props->m_height/2;
+            float px = props->X + props->m_width/2;
+            float py = props->Y + props->m_height/2;
+            m_Origin = new Point(px, py);
             m_TextureId = props->m_TextureId;
             m_Width = props->m_width;
             m_Height = props->m_height;

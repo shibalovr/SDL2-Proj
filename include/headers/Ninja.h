@@ -6,6 +6,7 @@
 #include "Character.h"
 #include "Animation.h"
 #include "RigidBody.h"
+#include "Collision.h"
 // #include "HitBox.h"
 
 enum AnimationState {
@@ -30,14 +31,7 @@ class Ninja : public Character
             // delete m_HitBox;
         }
         inline Point* GetOrigin() {return m_Origin;}
-        inline SDL_Rect GetRect() {
-            SDL_Rect tmp;
-            tmp.x = m_Transform->x;
-            tmp.y = m_Transform->y;
-            tmp.w = m_Width;
-            tmp.h = m_Height;
-            return tmp;
-        }
+        inline SDL_Rect getHitBox() {return m_HitBox;}
         void Draw();
         void Update(float dt);
         void Clean();
@@ -45,7 +39,9 @@ class Ninja : public Character
         Direction curDirection = DOWN; 
         Animation* m_Animation;
         RigidBody* m_RigidBody;
-        // int z;
+        SDL_Rect m_HitBox = {(int)m_Transform->x, (int)m_Transform->y, m_Width, m_Height};
+        Point lastSafePosition;
+
 };
 
 #endif

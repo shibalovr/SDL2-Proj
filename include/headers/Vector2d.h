@@ -22,8 +22,8 @@ class Vector2d {
             return Vector2d(x * scalar, y * scalar);
         }
 
-        void log(std::string msg) {
-            printf("%s (X Y): %f %f\n", msg, x, y);
+        void log(std::string msg = "") {
+            printf("(X Y): %f %f\n", x, y);
         }
 
         inline Vector2d operator/(const float divider) {

@@ -41,11 +41,10 @@ void Game::init(const char* title, int xpos, int ypos, bool fullscreen) {
     TextureManager::GetInstance()->Load("character_roll", "assets/sprites/Character_roll.png");
     TextureManager::GetInstance()->Load("character_attack", "assets/sprites/Character_attack.png");
     TextureManager::GetInstance()->Load("character_block", "assets/sprites/Character_block.png");
-    charac = new Ninja(new Properties("character_idle", 600, 100, 64, 64));
-    printf("hi\n");
+    charac = new Ninja(new Properties("character_idle", 600-32, 1200-32, 64, 64));
     Map::GetInstance()->LoadTileSets("assets/map/tileset.png");
     Camera::GetInstance()->setTarget(charac->GetOrigin());
-    // ColHandler::GetInstance()->LoadCollider("assets/map/map1_Collider.csv");
+    ColHandler::GetInstance()->LoadCollider("assets/map/map1_Collider.csv");
 }
 
 
@@ -56,7 +55,6 @@ void Game::handleEvents() {
 void Game::update() {  
     float dt = Timer::getInstance()->getDeltaTime();
     charac->Update(dt);
-    printf("%d %d\n", charac->GetRect().x, charac->GetRect().y);
     Camera::GetInstance()->Update(dt);
 }
 
