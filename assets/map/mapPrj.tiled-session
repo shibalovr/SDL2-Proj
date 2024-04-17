@@ -19,11 +19,11 @@
             "scaleInDock": 1
         },
         "map.tmx": {
-            "scale": 1.5,
-            "selectedLayer": 0,
+            "scale": 1,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 23.333333333333314,
-                "y": 267.99999999999994
+                "x": 410,
+                "y": 143
             }
         },
         "map.tmx#DungeonTileSet": {
@@ -40,8 +40,8 @@
             "scale": 0.33,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 848.4848484848485,
-                "y": 442.4242424242425
+                "x": 957.5757575757575,
+                "y": 322.72727272727263
             }
         },
         "untitled.tmx#Tileset": {

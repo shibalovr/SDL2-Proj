@@ -3,7 +3,7 @@
 
 Game* Game::s_Instance = nullptr;
 SDL_Renderer* Game::renderer = nullptr;
-Ninja* charac = nullptr;
+Character* charac = nullptr;
 
 Game::Game(){}
 
@@ -36,12 +36,11 @@ void Game::init(const char* title, int xpos, int ypos, bool fullscreen) {
     } else {
         quit = true;
     }
-    TextureManager::GetInstance()->Load("character_idle", "assets/sprites/Character_idle.png");
-    TextureManager::GetInstance()->Load("character_walk", "assets/sprites/Character_walk.png");
-    TextureManager::GetInstance()->Load("character_roll", "assets/sprites/Character_roll.png");
-    TextureManager::GetInstance()->Load("character_attack", "assets/sprites/Character_attack.png");
-    TextureManager::GetInstance()->Load("character_block", "assets/sprites/Character_block.png");
-    charac = new Ninja(new Properties("character_idle", 600, 800, 64, 64, 4));
+    TextureManager::GetInstance()->Load("idle", "assets/sprites/idle.png");
+    TextureManager::GetInstance()->Load("walk", "assets/sprites/walk.png");
+    TextureManager::GetInstance()->Load("roll", "assets/sprites/roll.png");
+    TextureManager::GetInstance()->Load("attack", "assets/sprites/attack.png");
+    charac = new Character(new Properties("idle", 600, 800, 64, 64, 4));
     Map::GetInstance()->LoadTileSets("assets/map/tileset.png");
     Camera::GetInstance()->setTarget(charac->GetOrigin());
     ColHandler::GetInstance()->LoadCollider("assets/map/map1_Collider.csv");

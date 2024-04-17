@@ -1,10 +1,14 @@
-#include "Ninja.h"
+#include "Character.h"
 #include "TextureManager.h"
 #include "Input.h"
 
 
-Ninja::Ninja(Properties* props) : Character(props)
+Character::Character(Properties* props) : GameObject(props)
 {
+    m_isAttack = false;
+    m_isRoll = false;
+    m_RollTime = ROLL_TIME;
+    m_AttackTime = ATTACK_TIME;
     m_RigidBody = new RigidBody();
     m_Animation = new Animation();
     m_HitBox = new HitBox();
@@ -13,7 +17,7 @@ Ninja::Ninja(Properties* props) : Character(props)
     printf("Created character success!\n");
 }
 
-void Ninja::Draw(){
+void Character::Draw(){
     m_Animation->Draw(m_Transform->x, m_Transform->y, m_Width, m_Height, m_scalar);
     Vector2d cam = Camera::GetInstance()->getPosition();
     SDL_Rect box = m_HitBox->Get();
@@ -21,128 +25,124 @@ void Ninja::Draw(){
     box.y -= cam.y;
     if (m_Transform == nullptr) {
         printf("m_transform error!\n");
-    } else {
-        // m_Transform->log();
-    }
+    } 
     SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, 255);
     SDL_RenderDrawRect(Game::renderer, &box);
-    // printf("%d, %d\n", box.x, box.y);
     SDL_SetRenderDrawColor(Game::renderer, 0, 0, 0, 255);
 }
 
-void Ninja::Clean() {
+void Character::Clean() {
     TextureManager::GetInstance()->clean();
 }
 
-void Ninja::Update(float dt) {
+void Character::Update(float dt) {
+    m_isWalk = false;
+
+    m_RigidBody->UnSetForce();
     // current states
     m_lastSafePosition.x = m_Transform->x;
     m_lastSafePosition.y = m_Transform->y;
-
+    
     switch (curDirection)
     {
     case DOWN:
-        m_Animation->setProps("character_idle", 0, 4, 150);
+        m_Animation->setProps("idle", 0, 4, 150);
         break;
     case LEFT:
-        m_Animation->setProps("character_idle", 1, 4, 150);
+        m_Animation->setProps("idle", 1, 4, 150);
         break;
     case UP:
-        m_Animation->setProps("character_idle", 2, 4, 150);
+        m_Animation->setProps("idle", 2, 4, 150);
         break;
     case RIGHT:
-        m_Animation->setProps("character_idle", 3, 4, 150);
+        m_Animation->setProps("idle", 3, 4, 150);
         break;
     }
     // unset force
-    m_RigidBody->UnSetForce();
 
     //Movement
     if (Input::getInstance()->GetKeyDown(SDL_SCANCODE_S)) {
         curDirection = DOWN;
-        m_Animation->setProps("character_walk", 0, 4, 150);
-        m_RigidBody->ApplyForceY(100);
+        m_Animation->setProps("walk", 0, 4, 150);
+        m_RigidBody->ApplyForceY(dt*WALKFORCE);
+        m_isWalk = true;
     }
     if (Input::getInstance()->GetKeyDown(SDL_SCANCODE_A)) {
         curDirection = LEFT;
-        m_Animation->setProps("character_walk", 1, 4, 150);
-        m_RigidBody->ApplyForceX(-100);
-
+        m_Animation->setProps("walk", 1, 4, 150);
+        m_RigidBody->ApplyForceX(-dt*WALKFORCE);
+        m_isWalk = true;
     }
     if (Input::getInstance()->GetKeyDown(SDL_SCANCODE_W)) {
         curDirection = UP;
-        m_Animation->setProps("character_walk", 2, 4, 150);
-        m_RigidBody->ApplyForceY(-100);
-
+        m_Animation->setProps("walk", 2, 4, 150);
+        m_RigidBody->ApplyForceY(-dt*WALKFORCE);
+        m_isWalk = true;
     }
     if (Input::getInstance()->GetKeyDown(SDL_SCANCODE_D)) {
         curDirection = RIGHT;
-        m_Animation->setProps("character_walk", 3, 4, 150);
-        m_RigidBody->ApplyForceX(100);
+        m_Animation->setProps("walk", 3, 4, 150);
+        m_RigidBody->ApplyForceX(dt*WALKFORCE);
+        m_isWalk = true;
     }
 
 
     // Roll
-    if (Input::getInstance()->GetKeyDown(SDL_SCANCODE_SPACE)) {
+    if (Input::getInstance()->GetKeyDown(SDL_SCANCODE_SPACE)|| (m_isRoll && m_RollTime > 0)) {
         switch (curDirection)
         {
         case DOWN:
-            m_Animation->setProps("character_roll", 0, 4, 150);
-            m_RigidBody->ApplyForceY(300);
+            m_Animation->setProps("roll", 0, 4, 150);
+            m_RigidBody->ApplyForceY(dt*ROLLFORCE);
             break;
         case LEFT:
-            m_Animation->setProps("character_roll", 1, 4, 150);
-            m_RigidBody->ApplyForceX(-300);
+            m_Animation->setProps("roll", 1, 4, 150);
+            m_RigidBody->ApplyForceX(-dt*ROLLFORCE);
             break;
         case UP:
-            m_Animation->setProps("character_roll", 2, 4, 150);
-            m_RigidBody->ApplyForceY(-300);
+            m_Animation->setProps("roll", 2, 4, 150);
+            m_RigidBody->ApplyForceY(-dt*ROLLFORCE);
             break;
         case RIGHT:
-            m_Animation->setProps("character_roll", 3, 4, 150);
-            m_RigidBody->ApplyForceX(300);
+            m_Animation->setProps("roll", 3, 4, 150);
+            m_RigidBody->ApplyForceX(dt*ROLLFORCE);
             break;
         }
+        m_RollTime -= dt;
+        m_isRoll = true;
     }
-    //attack
-    if (Input::getInstance()->GetKeyDown(SDL_SCANCODE_J)) {
+    //Attack
+    if (Input::getInstance()->GetKeyDown(SDL_SCANCODE_J) || (m_isAttack && m_AttackTime > 0)) {
         switch (curDirection)
         {
         case DOWN:
-            m_Animation->setProps("character_attack", 0, 4, 150);
+            m_Animation->setProps("attack", 0, 4, 150);
             break;
         case LEFT:
-            m_Animation->setProps("character_attack", 1, 4, 150);
+            m_Animation->setProps("attack", 1, 4, 150);
             break;
         case UP:
-            m_Animation->setProps("character_attack", 2, 4, 150);
+            m_Animation->setProps("attack", 2, 4, 150);
             break;
         case RIGHT:
-            m_Animation->setProps("character_attack", 3, 4, 150);
+            m_Animation->setProps("attack", 3, 4, 150);
             break;
         }
-    }
-
-    // Block
-    if (Input::getInstance()->GetKeyDown(SDL_SCANCODE_K)) {
-        switch (curDirection)
-        {
-        case DOWN:
-            m_Animation->setProps("character_block", 0, 1, 150);
-            break;
-        case LEFT:
-            m_Animation->setProps("character_block", 1, 1, 150);
-            break;
-        case UP:
-            m_Animation->setProps("character_block", 2, 1, 150);
-            break;
-        case RIGHT:
-            m_Animation->setProps("character_block", 3, 1, 50);
-            break;
-        }
+        m_isAttack = true;
+        m_AttackTime -= dt;
     }
 
-    m_RigidBody->Update(dt);
+    if (!m_isAttack || m_AttackTime <= 0) {
+        m_isAttack = false;
+        m_AttackTime = ATTACK_TIME;
+    }
+    if (!m_isRoll || m_RollTime <= 0) {
+        m_isRoll = false;
+        m_RollTime = ROLL_TIME;
+    }
+
+
+    m_RigidBody->Update(dt);    
     m_Transform->translateX(m_RigidBody->getPosition().x);
     m_Transform->translateY(m_RigidBody->getPosition().y);
     m_HitBox->Set(m_Transform->x, m_Transform->y, m_Width, m_Height, m_scalar);

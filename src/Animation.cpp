@@ -3,7 +3,7 @@
 
 void Animation::Draw(float x, float y, int width, int height, int scalar) {
     TextureManager::GetInstance()->drawframe(m_TextureId, x, y, width, height, m_SpriteRow, m_SpriteFrame, scalar, m_Flip);
-    // printf("location: %d, %d\n", x ,y);
+
 }
 
 void Animation::setProps(std::string TextureId, int spriteRow, int frameCount, int anim_speed, SDL_RendererFlip flip) {

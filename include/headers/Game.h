@@ -13,7 +13,7 @@
 #include "TextureManager.h"
 #include "Vector2d.h"
 #include "Transform.h"
-#include "Ninja.h"
+#include "Character.h"
 #include "Input.h"
 #include "Timer.h"
 #include "Map.h"

@@ -3,59 +3,56 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
 
-#include "Game.h"
-#include <string>
-#include "Point.h"
+#include "GameObject.h"
+#include "Animation.h"
+#include "RigidBody.h"
+#include "Collision.h"
+#include "HitBox.h"
 
-struct Properties {
-    public:
-        Properties(std::string TextureId, int x, int y, int width, int height,int scalar, SDL_RendererFlip Flip = SDL_FLIP_NONE) {
-            X = x;
-            Y = y;
-            m_TextureId = TextureId;
-            flip = Flip;
-            m_width = width;
-            m_height = height;
-            m_scalar = scalar;
-        }
+#define ATTACK_TIME 30.0f
+#define ROLL_TIME 30.0f
 
-    public:
-        float X, Y;
-        std::string m_TextureId;
-        SDL_RendererFlip flip;
-        int m_width, m_height;
-        int m_scalar;
+#define WALKFORCE 1500.0f
+#define ROLLFORCE 4000.00f
+
+enum AnimationState {
+    ANIMATION_PLAYING,
+    ANIMATION_STOPPED
 };
 
-class Character
+enum Direction {
+    UP,
+    DOWN,
+    RIGHT,
+    LEFT
+};
+
+class Character : public GameObject
 {
     public:
+        Character(Properties* props);
         ~Character() {
-            delete m_Transform;
-            delete m_Origin;
+            delete m_Animation;
+            delete m_RigidBody;
+            // delete m_HitBox;
         }
-        Character(Properties* props){
-            m_Transform = new Transform(props->X, props->Y);
-            float px = props->X + props->m_width/2;
-            float py = props->Y + props->m_height/2;
-            m_Origin = new Point(px, py);
-            m_TextureId = props->m_TextureId;
-            m_Width = props->m_width;
-            m_Height = props->m_height;
-            m_Flip = props->flip;
-            m_scalar = props->m_scalar;
-        }
-        virtual void Draw() = 0;
-        virtual void Update(float dt) = 0;
-        virtual void Clean() = 0;
+        inline Point* GetOrigin() {return m_Origin;}
+        inline SDL_Rect getHitBox() {return m_HitBox->Get();}
+        void Draw();
+        void Update(float dt);
+        void Clean();
+    private:
+        bool m_Shoot;
+        bool m_isWalk, m_isRoll;
+        bool m_isAttack;
 
-    protected:
-        int m_scalar;
-        Point* m_Origin;
-        Transform* m_Transform;
-        int m_Width, m_Height;
-        std::string m_TextureId;
-        SDL_RendererFlip m_Flip;
+        float m_RollTime;
+        float m_AttackTime;
+        Direction curDirection = DOWN; 
+        Animation* m_Animation;
+        RigidBody* m_RigidBody;
+        HitBox* m_HitBox; // currently it is the wall hit box, add more hitbox for enemy, item,...
+        Point m_lastSafePosition;
 };
 
 #endif
