@@ -15,10 +15,6 @@ class RigidBody {
         inline void ApplyForceY(float Fy) {m_Force.y = Fy;}
         inline void UnSetForce() {m_Force = Vector2d(0,0);}
 
-        // Friction
-        inline void ApplyFriction(Vector2d Fr) {m_Friction = Fr;} 
-        inline void UnSetFriction(){m_Friction = Vector2d(0,0);}
-
         void Update(float dt) {
             m_Acceleration.x = m_Force.x; // horizontal
             m_Acceleration.y = m_Force.y; // vertical
@@ -26,7 +22,6 @@ class RigidBody {
             m_Position = m_Velocity*dt;
         } 
 
-        inline float getMass(){return m_Mass;}
         inline Vector2d getPosition(){return m_Position;}
         inline Vector2d getVelocity(){return m_Velocity;}
         inline Vector2d getAcceleration(){return m_Acceleration;}
@@ -36,7 +31,6 @@ class RigidBody {
         float m_Gravity;
 
         Vector2d m_Force;
-        Vector2d m_Friction;
 
         Vector2d m_Position;
         Vector2d m_Velocity;

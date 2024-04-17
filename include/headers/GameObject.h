@@ -7,6 +7,7 @@
 #include <string>
 #include "Point.h"
 
+
 struct Properties {
     public:
         Properties(std::string TextureId, int x, int y, int width, int height,int scalar, SDL_RendererFlip Flip = SDL_FLIP_NONE) {

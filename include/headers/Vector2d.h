@@ -1,8 +1,6 @@
 #ifndef vector2d_h
 #define vector2d_h
 
-#include <Game.h>
-
 class Vector2d {
     public:
         float x, y;

@@ -4,7 +4,7 @@
 Game* Game::s_Instance = nullptr;
 SDL_Renderer* Game::renderer = nullptr;
 Character* charac = nullptr;
-
+Enemy* bat = nullptr;
 Game::Game(){}
 
 Game* Game::getInstance() {
@@ -40,7 +40,10 @@ void Game::init(const char* title, int xpos, int ypos, bool fullscreen) {
     TextureManager::GetInstance()->Load("walk", "assets/sprites/walk.png");
     TextureManager::GetInstance()->Load("roll", "assets/sprites/roll.png");
     TextureManager::GetInstance()->Load("attack", "assets/sprites/attack.png");
+    TextureManager::GetInstance()->Load("bat", "assets/sprites/enemy/bat_fly.png");
     charac = new Character(new Properties("idle", 600, 800, 64, 64, 4));
+    bat = new Enemy(new Properties("bat", 600, 800, 64, 64, 5));
+    bat->SetMovingArea(720, 920, 500, 500);
     Map::GetInstance()->LoadTileSets("assets/map/tileset.png");
     Camera::GetInstance()->setTarget(charac->GetOrigin());
     ColHandler::GetInstance()->LoadCollider("assets/map/map1_Collider.csv");
@@ -54,6 +57,7 @@ void Game::handleEvents() {
 void Game::update() {  
     float dt = Timer::getInstance()->getDeltaTime();
     charac->Update(dt);
+    bat->Update(dt);
     Camera::GetInstance()->Update(dt);
 }
 
@@ -62,6 +66,7 @@ void Game::render() {
     Map::GetInstance()->LoadMap(0, "assets/map/map1_bg.csv");
     // Map::GetInstance()->LoadMap(1, "assets/map/object.csv");
     charac->Draw();
+    bat->Draw();
     SDL_RenderPresent(Game::renderer);
 }
 
@@ -74,6 +79,7 @@ void Game::clean() {
     SDL_DestroyRenderer(Game::renderer);
     TextureManager::GetInstance()->clean();
     delete charac;
+    delete bat;
     Map::GetInstance()->Clean();
     printf("Game cleaned!");
     SDL_Quit();

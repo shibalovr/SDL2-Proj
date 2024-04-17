@@ -19,6 +19,7 @@
 #include "Map.h"
 #include "Camera.h"
 #include "Collision.h"
+#include "Enemy.h"
 
 
 const int WIDTH = 1200;

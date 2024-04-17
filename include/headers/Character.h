@@ -3,22 +3,23 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
 
-#include "GameObject.h"
+class GameObject;
+class Point;
+class RigidBody;
+class HitBox;
+
 #include "Animation.h"
 #include "RigidBody.h"
 #include "Collision.h"
 #include "HitBox.h"
+
+#include "GameObject.h"
 
 #define ATTACK_TIME 30.0f
 #define ROLL_TIME 30.0f
 
 #define WALKFORCE 1500.0f
 #define ROLLFORCE 4000.00f
-
-enum AnimationState {
-    ANIMATION_PLAYING,
-    ANIMATION_STOPPED
-};
 
 enum Direction {
     UP,

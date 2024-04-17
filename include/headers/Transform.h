@@ -3,7 +3,7 @@
 #ifndef transform_h
 #define transform_h
 
-#include <Game.h>
+#include "Vector2d.h"
 
 class Transform {
     public:
