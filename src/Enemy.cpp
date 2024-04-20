@@ -16,7 +16,7 @@ void Enemy::Draw() {
     SDL_Rect box = m_HitBox->Get();
     box.x -= cam.x;
     box.y -= cam.y;
-    printf("%d, %d, %d, %d\n", box.x, box.y, box.w, box.h);
+    // printf("%d, %d, %d, %d\n", box.x, box.y, box.w, box.h);
     SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, 255);
     SDL_RenderDrawRect(Game::renderer, &box);
     SDL_SetRenderDrawColor(Game::renderer, 0, 0, 0, 255);
@@ -36,11 +36,11 @@ void Enemy::Update(float dt) {
 
     int x = rand() % 10 - 5;
     int y = rand() % 10 - 5;
-    // m_RigidBody->ApplyForceX(x);
-    // m_RigidBody->ApplyForceY(y);
-    // m_RigidBody->Update(dt);
+    m_RigidBody->ApplyForceX(x);
+    m_RigidBody->ApplyForceY(y);
+    m_RigidBody->Update(dt);
 
-    // m_Transform->translate(m_RigidBody->getPosition());
+    m_Transform->translate(m_RigidBody->getPosition());
     m_HitBox->Set(m_Transform->x, m_Transform->y, m_Width, m_Height, m_scalar);
 
     if (ColHandler::GetInstance()->CheckCollideMap(m_HitBox->Get(), 40, 40)) {

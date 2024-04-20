@@ -15,11 +15,11 @@ class HitBox;
 
 #include "GameObject.h"
 
-#define ATTACK_TIME 30.0f
-#define ROLL_TIME 30.0f
+#define ATTACK_TIME 5.0f
+#define ROLL_TIME 6.0f
 
-#define WALKFORCE 1500.0f
-#define ROLLFORCE 4000.00f
+#define WALKFORCE 500.0f
+#define ROLLFORCE 1500.00f
 
 enum Direction {
     UP,

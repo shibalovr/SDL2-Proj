@@ -56,6 +56,7 @@ void Game::handleEvents() {
 
 void Game::update() {  
     float dt = Timer::getInstance()->getDeltaTime();
+    printf("%f\n", dt);
     charac->Update(dt);
     bat->Update(dt);
     Camera::GetInstance()->Update(dt);

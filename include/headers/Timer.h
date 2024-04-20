@@ -6,7 +6,7 @@
 #define TIMER_H
 
 const int TARGET_FPS = 60;
-const float TARGET_DELTATIME = 1.5f;
+const float TARGET_DELTATIME =  ;
 
 
 class Timer {
@@ -20,7 +20,7 @@ class Timer {
         void Tick();
 
         inline float getDeltaTime() {
-            return m_DeltaTime;
+            return m_DeltaTime*10;
         }
 
     private:
