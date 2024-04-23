@@ -68,3 +68,13 @@ void TextureManager::drawHitBox(HitBox* Hbox) {
     SDL_RenderDrawRect(Game::renderer, &box);
     SDL_SetRenderDrawColor(Game::renderer, 0, 0, 0, 255);
 }
+
+void TextureManager::drawScale(std::string id, int OriginX, int OriginY, int width, int height, float scale, SDL_RendererFlip flip) {
+    int x = OriginX - width*scale/2.0;
+    int y = OriginY - height*scale/2.0;
+    int new_w = width*scale;
+    int new_h = height*scale;
+    SDL_Rect srcRect = {0,0, width, height};
+    SDL_Rect disRect = {x,y, new_w, new_h};
+    SDL_RenderCopyEx(Game::renderer, m_TextureMap[id], &srcRect, &disRect, 0, NULL, flip);
+}

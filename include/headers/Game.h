@@ -20,6 +20,7 @@
 #include "Camera.h"
 #include "Collision.h"
 #include "Enemy.h"
+#include "Menu.h"
 
 
 const int WIDTH = 1200;
@@ -33,12 +34,12 @@ public:
     void handleEvents();
     void update();
     void render();
-    void clean();
-    
+    void clean();    
     void Quit();
     static SDL_Renderer* renderer;
     int cnt = 0;
     bool quit;
+    bool menu;
 private:
     Game();
     ~Game() {

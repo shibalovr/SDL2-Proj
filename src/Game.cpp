@@ -18,6 +18,8 @@ Game* Game::getInstance() {
 
 
 void Game::init(const char* title, int xpos, int ypos, bool fullscreen) {
+    menu = true;
+    quit = false;
     int flags = 0;
     if (fullscreen) {
         flags = SDL_WINDOW_FULLSCREEN;
@@ -44,6 +46,10 @@ void Game::init(const char* title, int xpos, int ypos, bool fullscreen) {
     TextureManager::GetInstance()->Load("attack", "assets/sprites/attack.png");
     TextureManager::GetInstance()->Load("bat", "assets/sprites/enemy/bat_fly.png");
     TextureManager::GetInstance()->Load("rat", "assets/sprites/enemy/Rat.png");
+    TextureManager::GetInstance()->Load("play", "assets/menu/Play.png");
+    TextureManager::GetInstance()->Load("quit", "assets/menu/Quit.png");
+    TextureManager::GetInstance()->Load("resume", "assets/menu/Resume.png");
+    TextureManager::GetInstance()->Load("bg", "assets/menu/bg.png");
     charac = new Character(new Properties("idle", 600, 800, 64, 64, 4));
     bat = new Enemy(new Properties("bat", 600, 800, 64, 64, 2));
     rat1 = new Enemy(new Properties("rat", 300, 400, 64, 64, 2));
