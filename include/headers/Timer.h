@@ -5,8 +5,8 @@
 #ifndef TIMER_H
 #define TIMER_H
 
-const int TARGET_FPS = 60;
-const float TARGET_DELTATIME =  ;
+const int TARGET_FPS = 60.0f;
+const float TARGET_DELTATIME = 5.0f;
 
 
 class Timer {

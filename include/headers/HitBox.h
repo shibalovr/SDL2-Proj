@@ -17,7 +17,6 @@ class HitBox {
                 h * scalar - m_Buffer.h
             };
         }
-
     private:
         SDL_Rect m_Box;
         SDL_Rect m_Buffer;

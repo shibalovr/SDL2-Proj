@@ -52,7 +52,8 @@ class Character : public GameObject
         Direction curDirection = DOWN; 
         Animation* m_Animation;
         RigidBody* m_RigidBody;
-        HitBox* m_HitBox; // currently it is the wall hit box, add more hitbox for enemy, item,...
+        HitBox* m_HitBox; // currently it is the wall hit box, hitbox for enemy, item,...
+        HitBox* m_AttackHitBox;
         Point m_lastSafePosition;
 };
 

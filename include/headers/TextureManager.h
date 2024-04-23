@@ -1,6 +1,7 @@
 #ifndef TextureManager_h_
 #define TextureManager_h_
 #include "Game.h"
+#include "HitBox.h"
 
 
 class TextureManager {
@@ -15,6 +16,8 @@ public:
     void drawTex(SDL_Texture* tex,int row, int col, int x, int y, int width, int height, SDL_RendererFlip flip=SDL_FLIP_NONE);
 
     void draw(std::string id, int x, int y, int width, int height, SDL_RendererFlip flip=SDL_FLIP_NONE);
+
+    void drawHitBox(HitBox* Hbox);
 
     void drawframe(std::string id, int x, int y, int width, int height, int row, int frame, int scalar, SDL_RendererFlip flip=SDL_FLIP_NONE);
 private:

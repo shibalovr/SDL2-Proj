@@ -12,6 +12,8 @@ Character::Character(Properties* props) : GameObject(props)
     m_RigidBody = new RigidBody();
     m_Animation = new Animation();
     m_HitBox = new HitBox();
+    m_AttackHitBox = new HitBox();
+    m_AttackHitBox->SetBuffer(0,0,0,0);
     m_HitBox->SetBuffer(-32 * m_scalar,-24 * m_scalar, 64 * m_scalar, 48 * m_scalar); // wall hit box
     m_Animation->setProps(m_TextureId, 0, 4, 150);
     printf("Created character success!\n");
@@ -19,16 +21,7 @@ Character::Character(Properties* props) : GameObject(props)
 
 void Character::Draw(){
     m_Animation->Draw(m_Transform->x, m_Transform->y, m_Width, m_Height, m_scalar);
-    Vector2d cam = Camera::GetInstance()->getPosition();
-    SDL_Rect box = m_HitBox->Get();
-    box.x -= cam.x;
-    box.y -= cam.y;
-    if (m_Transform == nullptr) {
-        printf("m_transform error!\n");
-    } 
-    SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, 255);
-    SDL_RenderDrawRect(Game::renderer, &box);
-    SDL_SetRenderDrawColor(Game::renderer, 0, 0, 0, 255);
+    TextureManager::GetInstance()->drawHitBox(m_HitBox);
 }
 
 void Character::Clean() {

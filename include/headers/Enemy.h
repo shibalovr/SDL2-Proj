@@ -22,11 +22,9 @@ class Enemy : public GameObject
         Enemy(Properties* props);
         inline Point* GetOrigin() {return m_Origin;}
         inline SDL_Rect GetHitBox() {return m_HitBox->Get();}
-        void SetMovingArea(int x, int y, int w, int h) {
-            m_MovingArea.x = x;
-            m_MovingArea.y = y;
-            m_MovingArea.w = w;
-            m_MovingArea.h = h;
+        void SetMovingArea(int Range, int speed) {
+            m_MoveRangeX = Range;
+            m_speedX = speed;
         } 
         void Draw();
         void Update(float dt);
@@ -34,7 +32,8 @@ class Enemy : public GameObject
     private:
         HitBox* m_HitBox;
         bool m_isDead;
-        SDL_Rect m_MovingArea = {720, 920, 500, 500};
+        int m_MoveRangeX, m_speedX, x;
+        // SDL_Rect m_MovingArea;
         Point m_LastSafePosition;
         Animation* m_Animation;
         RigidBody* m_RigidBody;

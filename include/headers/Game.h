@@ -27,8 +27,6 @@ const int HEIGHT = 800;
 
 class Game{
 public:
-    
-
     static Game* getInstance();
 
     void init(const char* title, int xpos, int ypos, bool fullscreen);

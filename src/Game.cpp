@@ -5,6 +5,8 @@ Game* Game::s_Instance = nullptr;
 SDL_Renderer* Game::renderer = nullptr;
 Character* charac = nullptr;
 Enemy* bat = nullptr;
+Enemy* rat1 = nullptr;
+Enemy* rat2 = nullptr;
 Game::Game(){}
 
 Game* Game::getInstance() {
@@ -41,9 +43,14 @@ void Game::init(const char* title, int xpos, int ypos, bool fullscreen) {
     TextureManager::GetInstance()->Load("roll", "assets/sprites/roll.png");
     TextureManager::GetInstance()->Load("attack", "assets/sprites/attack.png");
     TextureManager::GetInstance()->Load("bat", "assets/sprites/enemy/bat_fly.png");
+    TextureManager::GetInstance()->Load("rat", "assets/sprites/enemy/Rat.png");
     charac = new Character(new Properties("idle", 600, 800, 64, 64, 4));
-    bat = new Enemy(new Properties("bat", 600, 800, 64, 64, 5));
-    bat->SetMovingArea(720, 920, 500, 500);
+    bat = new Enemy(new Properties("bat", 600, 800, 64, 64, 2));
+    rat1 = new Enemy(new Properties("rat", 300, 400, 64, 64, 2));
+    rat2 = new Enemy(new Properties("rat", 300, 800, 64, 64, 2));
+    bat->SetMovingArea(5000, 40);
+    rat1->SetMovingArea(5000, 40);
+    rat2->SetMovingArea(5000, 40);
     Map::GetInstance()->LoadTileSets("assets/map/tileset.png");
     Camera::GetInstance()->setTarget(charac->GetOrigin());
     ColHandler::GetInstance()->LoadCollider("assets/map/map1_Collider.csv");
@@ -56,9 +63,10 @@ void Game::handleEvents() {
 
 void Game::update() {  
     float dt = Timer::getInstance()->getDeltaTime();
-    printf("%f\n", dt);
     charac->Update(dt);
     bat->Update(dt);
+    rat1->Update(dt);
+    rat2->Update(dt);
     Camera::GetInstance()->Update(dt);
 }
 
@@ -68,6 +76,8 @@ void Game::render() {
     // Map::GetInstance()->LoadMap(1, "assets/map/object.csv");
     charac->Draw();
     bat->Draw();
+    rat1->Draw();
+    rat2->Draw();
     SDL_RenderPresent(Game::renderer);
 }
 
@@ -80,7 +90,7 @@ void Game::clean() {
     SDL_DestroyRenderer(Game::renderer);
     TextureManager::GetInstance()->clean();
     delete charac;
-    delete bat;
+    delete bat, rat1, rat2;
     Map::GetInstance()->Clean();
     printf("Game cleaned!");
     SDL_Quit();

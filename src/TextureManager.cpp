@@ -57,3 +57,14 @@ void TextureManager::drawframe(std::string id, int x, int y, int width, int heig
     SDL_Rect disRect = {int(x-cam.x), int(y-cam.y), width*scalar, height*scalar};
     SDL_RenderCopyEx(Game::renderer, m_TextureMap[id], &srcRect, &disRect, 0, NULL, flip);
 }
+
+void TextureManager::drawHitBox(HitBox* Hbox) {
+    Vector2d cam = Camera::GetInstance()->getPosition();
+    SDL_Rect box = Hbox->Get();
+    box.x -= cam.x;
+    box.y -= cam.y;
+
+    SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, 255);
+    SDL_RenderDrawRect(Game::renderer, &box);
+    SDL_SetRenderDrawColor(Game::renderer, 0, 0, 0, 255);
+}
