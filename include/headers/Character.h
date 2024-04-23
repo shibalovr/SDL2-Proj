@@ -31,6 +31,8 @@ enum Direction {
 class Character : public GameObject
 {
     public:
+
+        int m_Hp, m_Mp;
         Character(Properties* props);
         ~Character() {
             delete m_Animation;

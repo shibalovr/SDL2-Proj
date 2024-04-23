@@ -5,6 +5,8 @@
 
 Character::Character(Properties* props) : GameObject(props)
 {
+    m_Hp = 50;
+    m_Mp = 100;
     m_isAttack = false;
     m_isRoll = false;
     m_RollTime = ROLL_TIME;

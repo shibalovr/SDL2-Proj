@@ -56,13 +56,6 @@ void Enemy::Update(float dt) {
         m_speedX = -m_speedX;
         printf("Touched\n");
     }  
-    // printf("%d, %d, %d, %d\n", m_MovingArea.x, m_MovingArea.y, m_MovingArea.w, m_MovingArea.h);
-    // printf("%d, %d, %d, %d\n", m_HitBox->Get().x, m_HitBox->Get().y, m_HitBox->Get().w, m_HitBox->Get().h);
-    // if (ColHandler::GetInstance()->CheckCollide(m_MovingArea, m_HitBox->Get())) {
-    //     m_Transform->x = m_LastSafePosition.x;
-    //     m_Transform->y = m_LastSafePosition.y;
-    //     printf("Out moving area\n");
-    // }
     m_Origin->x = m_Transform->x + m_Width/2;
     m_Origin->y = m_Transform->x + m_Height/2;
 
