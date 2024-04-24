@@ -20,7 +20,10 @@ void Input::Listen() {
         switch(e.type) {
             case SDL_QUIT: 
                 Game::getInstance()->Quit();
-                Game::getInstance()->menu = false;
+                Menu::getInstance()->isMenu = false;
+                break;
+            case SDL_MOUSEBUTTONDOWN:
+                Menu::getInstance()->MouseDown();
                 break;
             case SDL_KEYDOWN: KeyDown(); break;
             case SDL_KEYUP: KeyUp(); break;

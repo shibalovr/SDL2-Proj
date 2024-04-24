@@ -138,9 +138,9 @@ void Character::Update(float dt) {
 
 
     m_RigidBody->Update(dt);    
-    m_Transform->translateX(m_RigidBody->getPosition().x);
-    m_Transform->translateY(m_RigidBody->getPosition().y);
+    m_Transform->translate(m_RigidBody->getPosition());
     m_HitBox->Set(m_Transform->x, m_Transform->y, m_Width, m_Height, m_scalar);
+    
     if (ColHandler::GetInstance()->CheckCollideMap(m_HitBox->Get(), 40, 40)) {
         m_Transform->x = m_lastSafePosition.x;
         m_Transform->y = m_lastSafePosition.y;

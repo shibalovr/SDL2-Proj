@@ -9,10 +9,6 @@ Menu* Menu::getInstance() {
     return s_Instance;
 }
 
-void Menu::clean() {
-    TextureManager::GetInstance()->clean();
-}
-
 void Menu::update() {
     int x, y;
     SDL_GetMouseState(&x, &y);
@@ -52,7 +48,10 @@ void Menu::update() {
 }
 
 void Menu::load() {
-    
+    TextureManager::GetInstance()->Load("play", "assets/menu/Play.png");
+    TextureManager::GetInstance()->Load("quit", "assets/menu/Quit.png");
+    TextureManager::GetInstance()->Load("resume", "assets/menu/Resume.png");
+    TextureManager::GetInstance()->Load("bg", "assets/menu/bg.png");
 }
 
 void Menu::handleEvents() {
@@ -65,4 +64,13 @@ void Menu::render() {
     TextureManager::GetInstance()->drawScale("play", p_OriginX, p_OriginY, p_Width, p_Height, p_scale);
     TextureManager::GetInstance()->drawScale("quit", q_OriginX, q_OriginY, q_Width, q_Height, q_scale);
     SDL_RenderPresent(Game::renderer);
+}
+
+void Menu::MouseDown() {
+    if (p_isExpand) {
+        Menu::getInstance()->isMenu = false;
+    } else if (q_isExpand) {
+        Menu::getInstance()->isMenu = false;
+        Game::getInstance()->quit = true;
+    }
 }

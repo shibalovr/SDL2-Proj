@@ -26,6 +26,9 @@ class Enemy : public GameObject
             m_MoveRangeX = Range;
             m_speedX = speed;
         } 
+        void GetPos() {
+            m_Transform->log();
+        }
         void Draw();
         void Update(float dt);
         void Clean();
@@ -33,10 +36,10 @@ class Enemy : public GameObject
         HitBox* m_HitBox;
         bool m_isDead;
         int m_MoveRangeX, m_speedX, x;
-        // SDL_Rect m_MovingArea;
         Point m_LastSafePosition;
         Animation* m_Animation;
         RigidBody* m_RigidBody;
+        
 };
 
 

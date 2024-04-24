@@ -14,50 +14,55 @@ Enemy::Enemy(Properties* props) : GameObject(props)
 void Enemy::Draw() {
     m_Animation->Draw(m_Transform->x, m_Transform->y, m_Width, m_Height, m_scalar);
     TextureManager::GetInstance()->drawHitBox(m_HitBox);
-
 }
 
 void Enemy::Clean() {
     TextureManager::GetInstance()->clean();
+
 }
 
 void Enemy::Update(float dt) {
-    m_RigidBody->UnSetForce();
-    m_LastSafePosition.x = m_Transform->x;
-    m_LastSafePosition.y = m_Transform->y;
+    if (!Menu::getInstance()->isMenu) {
+        m_RigidBody->UnSetForce();
 
-    srand(time(nullptr));
-    if (x >= m_MoveRangeX) {
-        m_speedX = -m_speedX;
-        x = 0;
-        m_Animation->m_Flip = SDL_FLIP_HORIZONTAL;
-    } else if (x <= -m_MoveRangeX) {
-        m_speedX = -m_speedX;
-        x = 0;
-        m_Animation->m_Flip = SDL_FLIP_NONE;
-    } 
-    x += m_speedX;  
-    int y = rand() % 10 - 5;
-    m_RigidBody->ApplyForceX(m_speedX);
-    m_RigidBody->ApplyForceY(y);
-    m_RigidBody->Update(dt);
+        m_LastSafePosition.x = m_Transform->x;
+        m_LastSafePosition.y = m_Transform->y;
 
-    m_Transform->translate(m_RigidBody->getPosition());
-    m_HitBox->Set(m_Transform->x, m_Transform->y, m_Width, m_Height, m_scalar);
+        // m_LastSafePosition.Log();
+        srand(time(nullptr));
+        // if (x >= m_MoveRangeX) {
+        //     m_speedX = -m_speedX;
+        //     x = 0;
+        //     m_Animation->m_Flip = SDL_FLIP_HORIZONTAL;
+        // } else if (x <= -m_MoveRangeX) {
+        //     m_speedX = -m_speedX;
+        //     x = 0;
+        //     m_Animation->m_Flip = SDL_FLIP_NONE;
+        // } 
+        // x += m_speedX;  
+        int y = rand() % 10 - 5;
+        m_RigidBody->ApplyForceX(m_speedX);
+        m_RigidBody->ApplyForceY(y);
+        m_RigidBody->Update(dt);
 
-    if (ColHandler::GetInstance()->CheckCollideMap(m_HitBox->Get(), 40, 40)) {
-        m_Transform->x = m_LastSafePosition.x;
-        m_Transform->y = m_LastSafePosition.y;
-        if (m_Animation->m_Flip == SDL_FLIP_HORIZONTAL) {
-            m_Animation->m_Flip = SDL_FLIP_NONE;
-        } else {
-            m_Animation->m_Flip = SDL_FLIP_HORIZONTAL;
-        }
-        m_speedX = -m_speedX;
-        printf("Touched\n");
-    }  
-    m_Origin->x = m_Transform->x + m_Width/2;
-    m_Origin->y = m_Transform->x + m_Height/2;
+        m_Transform->translate(m_RigidBody->getPosition());
+        m_Transform->log();
+        m_HitBox->Set(m_Transform->x, m_Transform->y, m_Width, m_Height, m_scalar);
 
-    m_Animation->Update();
+        if (ColHandler::GetInstance()->CheckCollideMap(m_HitBox->Get(), 40, 40)) {
+            m_Transform->x = m_LastSafePosition.x;
+            m_Transform->y = m_LastSafePosition.y;
+            if (m_Animation->m_Flip == SDL_FLIP_HORIZONTAL) {
+                m_Animation->m_Flip = SDL_FLIP_NONE;
+            } else {
+                m_Animation->m_Flip = SDL_FLIP_HORIZONTAL;
+            }
+            m_speedX = -m_speedX;
+            printf("Touched\n");
+        }  
+        m_Origin->x = m_Transform->x + m_Width/2;
+        m_Origin->y = m_Transform->x + m_Height/2;
+
+        m_Animation->Update();
+    }
 }
