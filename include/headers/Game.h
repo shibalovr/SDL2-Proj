@@ -19,7 +19,6 @@
 #include "Map.h"
 #include "Camera.h"
 #include "Collision.h"
-#include "Enemy.h"
 #include "Menu.h"
 
 

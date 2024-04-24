@@ -45,17 +45,12 @@ class Character : public GameObject
         void Update(float dt);
         void Clean();
     private:
-        bool m_Shoot;
-        bool m_isWalk, m_isRoll;
-        bool m_isAttack;
-
-        float m_RollTime;
-        float m_AttackTime;
-        Direction curDirection = DOWN; 
+        bool m_isCrouching;
+        bool m_isGrounded, m_isJumping;
+        Direction curDirection = RIGHT; 
         Animation* m_Animation;
         RigidBody* m_RigidBody;
         HitBox* m_HitBox; // currently it is the wall hit box, hitbox for enemy, item,...
-        HitBox* m_AttackHitBox;
         Point m_lastSafePosition;
 };
 

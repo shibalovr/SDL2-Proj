@@ -16,7 +16,7 @@ class Map {
 
         void Clean();
     private:
-        int TileSetSize = 16;
+        int TileSetSize = 8;
         int TileSize = 40;
         Map() ;
         ~Map() {

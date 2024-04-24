@@ -38,7 +38,7 @@ void TextureManager::clean() {
 }
 
 void TextureManager::drawTex(SDL_Texture* tex, int row, int col,  int x, int y, int width, int height ,SDL_RendererFlip flip){
-    SDL_Rect src = {col*16, row*16, width, height};
+    SDL_Rect src = {col*width, row*height, width, height};
     Vector2d cam = Camera::GetInstance()->getPosition();
     SDL_Rect dist = {int(x - cam.x), int(y - cam.y), 40, 40};
     SDL_RenderCopyEx(Game::renderer, tex, &src, &dist, 0, NULL, flip);

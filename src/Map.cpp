@@ -46,8 +46,8 @@ void Map::LoadMap(int mapLayerID, std::string path) {
                 j++;
                 continue;
             }
-            int col = id % 16;
-            int row = id / 16;
+            int col = id % 8;
+            int row = id / 8;
             int x = j * TileSize;
             int y = i * TileSize;
             TextureManager::GetInstance()->drawTex(m_TileSet, row, col, x, y, TileSetSize, TileSetSize);
@@ -56,31 +56,7 @@ void Map::LoadMap(int mapLayerID, std::string path) {
         i++;
     }
     mapFile.close();
-    // m_MapLayers.insert(std::make_pair(mapLayerID, map));
-    // printf("Map loaded!\n");
 }
-
-// void Map::DrawMapLayer(std::vector<std::vector<int>>  layer) {
-//     for (unsigned int i = 0; i < layer.size(); i++) { // column
-//         for (unsigned int j = 0; j < layer[i].size(); j++) { // row
-//             if (layer[i][j] < 0) continue; 
-//             SDL_Rect src, dist;
-//             int col = layer[i][j] % 16;
-//             int row = layer[i][j] / 16;
-//             int x = j * 16;
-//             int y = i * 16;
-//             TextureManager::GetInstance()->drawTex(m_TileSet, row, col, x, y, 16, 16);
-//         }
-//     }
-// }
-
-
-
-// void Map::DrawMap() {
-//     for (auto it = m_MapLayers.begin(); it != m_MapLayers.end(); it++) {
-//         DrawMapLayer(it->second);
-//     }
-// }
 
 void Map::Clean() {
     m_MapLayers.clear();

@@ -26,7 +26,7 @@ class Menu {
         bool p_isExpand, q_isExpand;
         float p_scale, q_scale;
         Menu(){
-            isMenu = true;
+            isMenu = false;
             p_scale = 1, q_scale = 1;
             p_OriginX = 600, p_OriginY = 500, p_Width = 300, p_Height = 100;
             q_OriginX = 600, q_OriginY = 650, q_Width = 300, q_Height = 100;
