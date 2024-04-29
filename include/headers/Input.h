@@ -13,6 +13,9 @@ class Input {
         SDL_Event e;
         void Listen();
         bool GetKeyDown(SDL_Scancode key);
+        bool GetKeyUp(SDL_Scancode key);
+        bool isJump();
+        bool isJumpLeft();
         
     private:
         Input();
@@ -23,7 +26,7 @@ class Input {
         
         void KeyUp();
         void KeyDown();
-
+        bool quit;
         const Uint8* m_KeyStates;
         static Input* s_Instance;
 };

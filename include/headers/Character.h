@@ -22,6 +22,7 @@ class HitBox;
 #define ROLLFORCE 1500.00f
 
 enum Direction {
+    NONE,
     UP,
     DOWN,
     RIGHT,
@@ -31,8 +32,6 @@ enum Direction {
 class Character : public GameObject
 {
     public:
-
-        int m_Hp, m_Mp;
         Character(Properties* props);
         ~Character() {
             delete m_Animation;
@@ -47,6 +46,7 @@ class Character : public GameObject
     private:
         bool m_isCrouching;
         bool m_isGrounded, m_isJumping;
+        float m_JumpTime;
         Direction curDirection = RIGHT; 
         Animation* m_Animation;
         RigidBody* m_RigidBody;
