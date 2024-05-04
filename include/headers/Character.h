@@ -44,7 +44,7 @@ class Character : public GameObject
         void Update(float dt);
         void Clean();
     private:
-        bool m_isCrouching;
+        bool m_isCrouching, m_isFalling;
         bool m_isGrounded, m_isJumping;
         float m_JumpTime;
         Direction curDirection = RIGHT; 

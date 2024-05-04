@@ -6,11 +6,13 @@
 Character::Character(Properties* props) : GameObject(props)
 {
     m_JumpTime = 0;
+    m_isFalling = false;    
     m_isJumping = false;
     m_isCrouching = false;
     m_Flip = SDL_FLIP_NONE;
     m_RigidBody = new RigidBody();
     m_Animation = new Animation();
+    m_RigidBody->SetGravity(30);
     m_HitBox = new HitBox();
     m_HitBox->SetBuffer(0,0,0,0); // wall hit box
     m_Animation->setProps(m_TextureId, 0, 1, 150);
@@ -57,24 +59,35 @@ void Character::Update(float dt) {
     //Movement
     if (Input::getInstance()->GetKeyDown(SDL_SCANCODE_A) && m_isGrounded && !m_isCrouching) {
         m_Flip = SDL_FLIP_HORIZONTAL;
-        m_Animation->setProps("walk", 0, 3, 150, m_Flip);
+        m_Animation->setProps("walk", 0, 3, 120, m_Flip);
         m_RigidBody->ApplyForceX(-100);
     }
     if (Input::getInstance()->GetKeyDown(SDL_SCANCODE_D) && m_isGrounded && !m_isCrouching) {
         m_Flip = SDL_FLIP_NONE;
-        m_Animation->setProps("walk", 0, 3, 150, m_Flip);
+        m_Animation->setProps("walk", 0, 3, 120, m_Flip);
         m_RigidBody->ApplyForceX(100);
     }
+    // fall
+    if (m_isFalling && !m_isGrounded) {
+        if (curDirection == LEFT) {
+            m_RigidBody->ApplyForceX(-80);
+        } else if (curDirection == RIGHT) {
+            m_RigidBody->ApplyForceX(80);
+        }
+        m_Animation->setProps("jump_down", 0 , 1, 150, m_Flip);
+        m_isGrounded = false;
+    }
+
 
     // jump
     if (m_isJumping && m_JumpTime > 0 && !m_isCrouching) {
         if (curDirection == LEFT) {
-            m_RigidBody->ApplyForceX(-30);
+            m_RigidBody->ApplyForceX(-80);
         } else if (curDirection == RIGHT) {
-            m_RigidBody->ApplyForceX(30);
+            m_RigidBody->ApplyForceX(80);
         }
         m_isGrounded = false;
-        m_RigidBody->ApplyForceY(-50);
+        m_RigidBody->ApplyForceY(-300);
         m_Animation->setProps("jump_up", 0, 1, 150, m_Flip);
         m_JumpTime -= dt;
     }
@@ -82,6 +95,7 @@ void Character::Update(float dt) {
     if (m_JumpTime <= 0) {
         m_JumpTime = 0;
         m_isJumping = false;
+        m_isFalling = true;
     }
     
 
@@ -101,6 +115,7 @@ void Character::Update(float dt) {
     if (ColHandler::GetInstance()->CheckCollideMap(m_HitBox->Get(), 40, 40)) {
         m_Transform->y = m_lastSafePosition.y;
         m_isGrounded = true;
+        m_isFalling = false;
     } else {
         m_isGrounded = false;
     }
