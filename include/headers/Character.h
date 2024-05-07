@@ -15,11 +15,16 @@ class HitBox;
 
 #include "GameObject.h"
 
-#define ATTACK_TIME 5.0f
-#define ROLL_TIME 6.0f
+#define MAX_FALL_FORCE 30
 
-#define WALKFORCE 500.0f
-#define ROLLFORCE 1500.00f
+#define JUMP_TIME 50
+#define FALL_TIME 50
+#define DEAD_TIME 100
+
+#define JUMP_FORCE 10.0f
+#define FALL_FORCE 10.0f
+
+#define MAX_JUMPTIME 50
 
 enum Direction {
     NONE,
@@ -39,18 +44,23 @@ class Character : public GameObject
             // delete m_HitBox;
         }
         inline Point* GetOrigin() {return m_Origin;}
-        inline SDL_Rect getHitBox() {return m_HitBox->Get();}
+        inline SDL_Rect getBotHitBox() {return m_BotHB->Get();}
+        inline SDL_Rect getTopHitBox() {return m_TopHB->Get();}
         void Draw();
         void Update(float dt);
         void Clean();
     private:
         bool m_isCrouching, m_isFalling;
         bool m_isGrounded, m_isJumping;
-        float m_JumpTime;
+        float m_JumpTime, m_FallTime, m_DeadTime;
+        float m_FallForce;
+        bool m_isBounce, m_isDead;
         Direction curDirection = RIGHT; 
         Animation* m_Animation;
         RigidBody* m_RigidBody;
-        HitBox* m_HitBox; // currently it is the wall hit box, hitbox for enemy, item,...
+        HitBox* m_TopHB; 
+        HitBox* m_MidHB;
+        HitBox* m_BotHB;
         Point m_lastSafePosition;
 };
 

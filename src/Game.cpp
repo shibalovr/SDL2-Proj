@@ -42,6 +42,8 @@ void Game::init(const char* title, int xpos, int ypos, bool fullscreen) {
     TextureManager::GetInstance()->Load("crouch", "assets/sprites/crouch.png");
     TextureManager::GetInstance()->Load("jump_up", "assets/sprites/jump_up.png");
     TextureManager::GetInstance()->Load("jump_down", "assets/sprites/jump_down.png");
+    TextureManager::GetInstance()->Load("bounce", "assets/sprites/bounce.png");
+    TextureManager::GetInstance()->Load("dead", "assets/sprites/dead.png");
     charac = new Character(new Properties("idle", 500, 3890, 32, 28, 2));
     Map::GetInstance()->LoadTileSets("assets/map/ts.png");
     Camera::GetInstance()->setTarget(charac->GetOrigin());
@@ -56,7 +58,7 @@ void Game::handleEvents() {
 void Game::update() {  
     float dt = Timer::getInstance()->getDeltaTime();
     charac->Update(dt);
-    Camera::GetInstance()->Update(dt);
+    Camera::GetInstance()->Update();
 }
 
 void Game::render() {

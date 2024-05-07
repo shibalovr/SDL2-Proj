@@ -38,7 +38,6 @@ class RigidBody {
     private:
         float m_Mass;
         float m_Gravity;
-
         Vector2d m_Force;
 
         Vector2d m_Position;

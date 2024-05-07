@@ -6,7 +6,7 @@
 
 class Camera {
     public:
-        void Update(float dt);
+        void Update();
         inline static Camera* GetInstance() {
             if (s_Instance == nullptr) {
                 s_Instance = new Camera();

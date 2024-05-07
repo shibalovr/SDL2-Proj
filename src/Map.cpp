@@ -46,8 +46,8 @@ void Map::LoadMap(int mapLayerID, std::string path) {
                 j++;
                 continue;
             }
-            int col = id % 8;
-            int row = id / 8;
+            int col = id % 16;
+            int row = id / 16;
             int x = j * TileSize;
             int y = i * TileSize;
             TextureManager::GetInstance()->drawTex(m_TileSet, row, col, x, y, TileSetSize, TileSetSize);

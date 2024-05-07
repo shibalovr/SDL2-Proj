@@ -44,6 +44,8 @@ bool ColHandler::CheckCollideMap(const SDL_Rect& rectA,int twidth, int theight) 
         tmp.h = theight;
         if (CheckCollide(rectA, tmp)) return true;
     }
+
+    if (rectA.x <= 0 || rectA.x + rectA.w >= 1200) return true;
     return false;
 }
 

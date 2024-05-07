@@ -1,0 +1,82 @@
+{
+    "activeFile": "map.tmx",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "": {
+            "scaleInEditor": 1
+        },
+        "#Tileset": {
+            "scaleInDock": 1.5
+        },
+        "#tileset": {
+            "scaleInDock": 1
+        },
+        "#ts": {
+            "scaleInDock": 4
+        },
+        "D:/map.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 33.666666666666686,
+                "y": 910.6666666666665
+            }
+        },
+        "D:/map.tmx#ts": {
+            "dynamicWrapping": false,
+            "scaleInDock": 5.5
+        },
+        "map.tmx": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 91.16666666666666,
+                "y": -30.333333333333343
+            }
+        },
+        "map.tmx#DungeonTileSet": {
+            "scaleInDock": 1.5,
+            "scaleInEditor": 1
+        },
+        "map.tmx#tile": {
+            "scaleInDock": 1
+        },
+        "map.tmx#tileset": {
+            "scaleInDock": 1
+        },
+        "map.tmx#ts": {
+            "scaleInDock": 3
+        },
+        "tset.tsx": {
+            "scaleInDock": 3,
+            "scaleInEditor": 1
+        },
+        "untitled.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1340.909090909091,
+                "y": 315.15151515151524
+            }
+        },
+        "untitled.tmx#Tileset": {
+            "scaleInDock": 1.5
+        }
+    },
+    "last.imagePath": "F:/SDL2-Proj/assets/map",
+    "openFiles": [
+        "map.tmx",
+        "tset.tsx"
+    ],
+    "project": "",
+    "recentFiles": [
+        "tset.tsx",
+        "map.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 8,
+        "width": 8
+    }
+}
