@@ -7,7 +7,8 @@ Character::Character(Properties* props) : GameObject(props)
 {
     m_JumpTime = 0;
     m_FallTime = 0;
-    m_isFalling = false;    
+    m_isFalling = false;
+    m_jumpMusic = false;    
     m_isJumping = false;
     m_DeadTime = DEAD_TIME;
     m_isDead = false;
@@ -29,9 +30,9 @@ Character::Character(Properties* props) : GameObject(props)
 
 void Character::Draw(){
     m_Animation->Draw(m_Transform->x, m_Transform->y, m_Width, m_Height, m_scalar);
-    TextureManager::GetInstance()->drawHitBox(m_TopHB);
-    TextureManager::GetInstance()->drawHitBox(m_BotHB);
-    TextureManager::GetInstance()->drawHitBox(m_MidHB);
+    // TextureManager::GetInstance()->drawHitBox(m_TopHB);
+    // TextureManager::GetInstance()->drawHitBox(m_BotHB);
+    // TextureManager::GetInstance()->drawHitBox(m_MidHB);
 }
 
 void Character::Clean() {
@@ -74,6 +75,7 @@ void Character::Update(float dt) {
     }
 
     if (ColHandler::GetInstance()->CheckCollideMap(m_TopHB->Get(), 40, 40)) {
+        SoundManager::GetInstances()->PlayChunk("bump");
         m_isFalling = true;
         m_JumpTime = 0;
     }
@@ -89,6 +91,7 @@ void Character::Update(float dt) {
         m_Animation->setProps("walk", 0, 3, 120, m_Flip);
         m_RigidBody->ApplyForceX(100);
     }
+
     // fall
     if (m_isFalling) {
         if (ColHandler::GetInstance()->CheckCollideMap(m_MidHB->Get(), 40, 40)) {
@@ -97,6 +100,7 @@ void Character::Update(float dt) {
             } else if (curDirection == RIGHT) {
                 curDirection = LEFT;
             }
+            SoundManager::GetInstances()->PlayChunk("bump");
             m_isBounce = true;
         }
         m_FallTime++;
@@ -116,9 +120,12 @@ void Character::Update(float dt) {
     }
     
 
-
     // jump
     if (m_isJumping && m_JumpTime > 0 && !m_isCrouching) {
+        if (m_jumpMusic == false) {
+            m_jumpMusic = true;
+            SoundManager::GetInstances()->PlayChunk("jump");
+        } 
         if (ColHandler::GetInstance()->CheckCollideMap(m_MidHB->Get(), 40, 40)) {
             if (curDirection == LEFT) {
                 curDirection = RIGHT;
@@ -126,6 +133,7 @@ void Character::Update(float dt) {
                 curDirection = LEFT;
             }
             m_isBounce = true;
+            SoundManager::GetInstances()->PlayChunk("bump");
         }
         if (curDirection == LEFT) {
             m_RigidBody->ApplyForceX(-150);
@@ -146,11 +154,12 @@ void Character::Update(float dt) {
         m_isDead = false;
     }
 
-    if (m_JumpTime <= 0) {
+    if (m_JumpTime <= 0 && m_isJumping) {
         m_JumpTime = 0;
         m_isJumping = false;
         m_isFalling = true;
     }
+
     if (m_isBounce == true) {
         m_Animation->setProps("bounce", 0, 1, 150, m_Flip);
     }
@@ -173,8 +182,12 @@ void Character::Update(float dt) {
     m_MidHB->Set(m_Transform->x, m_Transform->y, m_Width, m_Height, m_scalar);
 
     if (ColHandler::GetInstance()->CheckCollideMap(m_BotHB->Get(), 40, 40)) {
+        if (m_isFalling) {
+            SoundManager::GetInstances()->PlayChunk("land");
+        }
         m_Transform->y = m_lastSafePosition.y;
         m_isGrounded = true;
+        m_jumpMusic = false;
         m_isFalling = false;
         if (m_FallTime >= 70) {
             m_Animation->setProps("dead", 1, 1, 1, m_Flip);

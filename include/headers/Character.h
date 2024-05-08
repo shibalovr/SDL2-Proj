@@ -12,6 +12,7 @@ class HitBox;
 #include "RigidBody.h"
 #include "Collision.h"
 #include "HitBox.h"
+#include "Sound.h"
 
 #include "GameObject.h"
 
@@ -44,8 +45,6 @@ class Character : public GameObject
             // delete m_HitBox;
         }
         inline Point* GetOrigin() {return m_Origin;}
-        inline SDL_Rect getBotHitBox() {return m_BotHB->Get();}
-        inline SDL_Rect getTopHitBox() {return m_TopHB->Get();}
         void Draw();
         void Update(float dt);
         void Clean();
@@ -54,6 +53,7 @@ class Character : public GameObject
         bool m_isGrounded, m_isJumping;
         float m_JumpTime, m_FallTime, m_DeadTime;
         float m_FallForce;
+        bool m_jumpMusic;
         bool m_isBounce, m_isDead;
         Direction curDirection = RIGHT; 
         Animation* m_Animation;

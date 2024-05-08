@@ -3,6 +3,7 @@
 
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_mixer.h>
 #include "TextureManager.h"
 #include "Input.h"
 
@@ -13,14 +14,15 @@ class Menu {
         void render();
         void update();
         void load();
+        void clean();
         void MouseDown();
-
+        void PlayMenuMusic();
         bool isMenu;
     private:
         ~Menu() {
             delete s_Instance;
         }
-
+        Mix_Music* menu_musik;
         int p_OriginX, p_OriginY, p_Width, p_Height;
         int q_OriginX, q_OriginY, q_Width, q_Height;
         bool p_isExpand, q_isExpand;

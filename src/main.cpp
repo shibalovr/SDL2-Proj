@@ -4,11 +4,13 @@
 int main(int argc, char* arg[]) {
     Game::getInstance()->init("Little dungeon", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0);
     Menu::getInstance()->load();
+    Menu::getInstance()->PlayMenuMusic();
     while(Menu::getInstance()->isMenu) {
         Menu::getInstance()->handleEvents();
         Menu::getInstance()->update();
         Menu::getInstance()->render();
     }
+    Menu::getInstance()->clean();
     while (!Game::getInstance()->quit) {
         Timer::getInstance()->Tick();
         Game::getInstance()->handleEvents();

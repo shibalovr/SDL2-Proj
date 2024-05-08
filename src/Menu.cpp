@@ -52,6 +52,11 @@ void Menu::load() {
     TextureManager::GetInstance()->Load("quit", "assets/menu/Quit.png");
     TextureManager::GetInstance()->Load("resume", "assets/menu/Resume.png");
     TextureManager::GetInstance()->Load("bg", "assets/menu/bg.png");
+    menu_musik = SoundManager::GetInstances()->LoadMusic("assets/sound/menu_loop.wav");
+}
+
+void Menu::PlayMenuMusic() {
+    SoundManager::GetInstances()->PlayMusic(menu_musik);
 }
 
 void Menu::handleEvents() {
@@ -69,8 +74,16 @@ void Menu::render() {
 void Menu::MouseDown() {
     if (p_isExpand) {
         Menu::getInstance()->isMenu = false;
+        SoundManager::GetInstances()->PlayChunk("press");
     } else if (q_isExpand) {
         Menu::getInstance()->isMenu = false;
         Game::getInstance()->quit = true;
+        SoundManager::GetInstances()->PlayChunk("press");
+    }
+}
+
+void Menu::clean() {
+    if (menu_musik != nullptr) {
+        Mix_FreeMusic(menu_musik);
     }
 }

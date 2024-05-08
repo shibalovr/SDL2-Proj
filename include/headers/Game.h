@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_mixer.h>
 #include <string>
 #include <algorithm>
 #include <map>
@@ -11,6 +12,7 @@
 #include <vector>
 #include <sstream>
 #include "TextureManager.h"
+#include "Sound.h"
 #include "Vector2d.h"
 #include "Transform.h"
 #include "Character.h"

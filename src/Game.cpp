@@ -34,6 +34,10 @@ void Game::init(const char* title, int xpos, int ypos, bool fullscreen) {
         if (Game::renderer) {
             printf("Renderer created\n");
         }
+
+        if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) >= 0) {
+            printf("Mixer created\n");
+        }
     } else {
         quit = true;
     }
@@ -43,7 +47,11 @@ void Game::init(const char* title, int xpos, int ypos, bool fullscreen) {
     TextureManager::GetInstance()->Load("jump_up", "assets/sprites/jump_up.png");
     TextureManager::GetInstance()->Load("jump_down", "assets/sprites/jump_down.png");
     TextureManager::GetInstance()->Load("bounce", "assets/sprites/bounce.png");
-    TextureManager::GetInstance()->Load("dead", "assets/sprites/dead.png");
+    TextureManager::GetInstance()->Load("dead", "assets/sprites/dead.png");;
+    SoundManager::GetInstances()->LoadChunk("jump", "assets/sound/jump.wav");
+    SoundManager::GetInstances()->LoadChunk("bump", "assets/sound/bump.wav");
+    SoundManager::GetInstances()->LoadChunk("land", "assets/sound/land.wav");
+    SoundManager::GetInstances()->LoadChunk("press", "assets/sound/press.wav");
     charac = new Character(new Properties("idle", 500, 3890, 32, 28, 2));
     Map::GetInstance()->LoadTileSets("assets/map/ts.png");
     Camera::GetInstance()->setTarget(charac->GetOrigin());
@@ -80,5 +88,6 @@ void Game::clean() {
     delete charac;
     Map::GetInstance()->Clean();
     printf("Game cleaned!");
+    Mix_Quit();
     SDL_Quit();
 }
