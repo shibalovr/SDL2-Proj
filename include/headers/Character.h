@@ -50,6 +50,7 @@ class Character : public GameObject
         void Clean();
     private:
         bool m_isCrouching, m_isFalling;
+        bool m_isCheatMode;
         bool m_isGrounded, m_isJumping;
         float m_JumpTime, m_FallTime, m_DeadTime;
         float m_FallForce;

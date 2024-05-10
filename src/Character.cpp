@@ -7,6 +7,7 @@ Character::Character(Properties* props) : GameObject(props)
 {
     m_JumpTime = 0;
     m_FallTime = 0;
+    m_isCheatMode = true;
     m_isFalling = false;
     m_jumpMusic = false;    
     m_isJumping = false;
@@ -41,16 +42,31 @@ void Character::Clean() {
 
 void Character::Update(float dt) {
     // current states
+    dt = 10/60.0f;
+    
     m_lastSafePosition.x = m_Transform->x;
     m_lastSafePosition.y = m_Transform->y;
     
+    if (Input::getInstance()->GetKeyDown(SDL_SCANCODE_C)) {
+        if (m_isCheatMode == true) {
+            m_isCheatMode = false;
+        } else {
+            m_isCheatMode = true;
+        }
+        curDirection = NONE;
+        SDL_Delay(250); 
+    }
+
+    printf("%f\n", dt);
     // unset force
     m_RigidBody->SetGravity(30);
     m_RigidBody->UnSetForce();
     m_Animation->setProps("idle", 0, 1, 150, m_Flip);
 
-
-    if (Input::getInstance()->GetKeyDown(SDL_SCANCODE_SPACE) && m_isGrounded && !m_isDead) {
+    if (m_isCheatMode) {
+        m_RigidBody->SetGravity(0);
+    }
+    if (Input::getInstance()->GetKeyDown(SDL_SCANCODE_SPACE) && m_isGrounded && !m_isDead && !m_isCheatMode) {
         m_isCrouching = true;
         m_isJumping = true;
         m_Animation->setProps("crouch", 0, 1, 150, m_Flip);
@@ -64,6 +80,10 @@ void Character::Update(float dt) {
 
     if (m_isGrounded && !m_isJumping) {
         curDirection = NONE;
+    } 
+
+    if (!m_isGrounded && !m_isJumping) {
+        m_isFalling = true;
     }
 
     if (Input::getInstance()->GetKeyDown(SDL_SCANCODE_A) && m_isCrouching && !m_isDead) {
@@ -74,26 +94,36 @@ void Character::Update(float dt) {
         curDirection = RIGHT;
     }
 
-    if (ColHandler::GetInstance()->CheckCollideMap(m_TopHB->Get(), 40, 40)) {
+    if (ColHandler::GetInstance()->CheckCollideMap(m_TopHB->Get(), 40, 40) && !m_isCheatMode) {
         SoundManager::GetInstances()->PlayChunk("bump");
         m_isFalling = true;
         m_JumpTime = 0;
     }
 
     //Movement
-    if (Input::getInstance()->GetKeyDown(SDL_SCANCODE_A) && m_isGrounded && !m_isCrouching && !m_isDead) {
+    if (Input::getInstance()->GetKeyDown(SDL_SCANCODE_A) && ((m_isGrounded && !m_isCrouching && !m_isDead) || m_isCheatMode)) {
         m_Flip = SDL_FLIP_HORIZONTAL;
         m_Animation->setProps("walk", 0, 3, 120, m_Flip);
         m_RigidBody->ApplyForceX(-100);
     }
-    if (Input::getInstance()->GetKeyDown(SDL_SCANCODE_D) && m_isGrounded && !m_isCrouching && !m_isDead) {
+    if (Input::getInstance()->GetKeyDown(SDL_SCANCODE_D) && ((m_isGrounded && !m_isCrouching && !m_isDead) || m_isCheatMode)) {
         m_Flip = SDL_FLIP_NONE;
         m_Animation->setProps("walk", 0, 3, 120, m_Flip);
         m_RigidBody->ApplyForceX(100);
     }
 
+    if (Input::getInstance()->GetKeyDown(SDL_SCANCODE_W) && m_isCheatMode) {
+        m_Animation->setProps("walk", 0, 3, 120, m_Flip);
+        m_RigidBody->ApplyForceY(-200);
+    }
+
+    if (Input::getInstance()->GetKeyDown(SDL_SCANCODE_S) && m_isCheatMode) {
+        m_Animation->setProps("walk", 0, 3, 120, m_Flip);
+        m_RigidBody->ApplyForceY(200);
+    }
+
     // fall
-    if (m_isFalling) {
+    if (m_isFalling && !m_isCheatMode) {
         if (ColHandler::GetInstance()->CheckCollideMap(m_MidHB->Get(), 40, 40)) {
             if (curDirection == LEFT) {
                 curDirection = RIGHT;
@@ -170,7 +200,7 @@ void Character::Update(float dt) {
     m_TopHB->Set(m_Transform->x, m_Transform->y, m_Width, m_Height, m_scalar);
     m_BotHB->Set(m_Transform->x, m_Transform->y, m_Width, m_Height, m_scalar);
     m_MidHB->Set(m_Transform->x, m_Transform->y, m_Width, m_Height, m_scalar);
-    if (ColHandler::GetInstance()->CheckCollideMap(m_BotHB->Get(), 40, 40)) {
+    if (ColHandler::GetInstance()->CheckCollideMap(m_BotHB->Get(), 40, 40) && !m_isCheatMode) {
         m_Transform->x = m_lastSafePosition.x;
     }
 
@@ -181,7 +211,7 @@ void Character::Update(float dt) {
     m_BotHB->Set(m_Transform->x, m_Transform->y, m_Width, m_Height, m_scalar);
     m_MidHB->Set(m_Transform->x, m_Transform->y, m_Width, m_Height, m_scalar);
 
-    if (ColHandler::GetInstance()->CheckCollideMap(m_BotHB->Get(), 40, 40)) {
+    if (ColHandler::GetInstance()->CheckCollideMap(m_BotHB->Get(), 40, 40) && !m_isCheatMode) {
         if (m_isFalling) {
             SoundManager::GetInstances()->PlayChunk("land");
         }
