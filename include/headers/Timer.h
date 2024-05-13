@@ -23,8 +23,7 @@ class Timer {
 
     private:
         Timer() {
-            m_DeltaTime = 0.0f;
-            m_LastTime = SDL_GetTicks();
+            m_DeltaTime = 1/60.0f;
         }
         ~Timer() {
             delete s_Instance;

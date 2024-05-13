@@ -8,8 +8,7 @@ void Timer::Tick() {
     float frameDelay = 1.0f/TARGET_FPS;
     if (m_DeltaTime < frameDelay) {
         SDL_Delay((frameDelay - m_DeltaTime) * 1000);
-        m_DeltaTime = frameDelay;
-    }
-
+    } 
+    m_DeltaTime = frameDelay;
     m_LastTime = SDL_GetTicks();
 }

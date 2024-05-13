@@ -31,9 +31,9 @@ Character::Character(Properties* props) : GameObject(props)
 
 void Character::Draw(){
     m_Animation->Draw(m_Transform->x, m_Transform->y, m_Width, m_Height, m_scalar);
-    // TextureManager::GetInstance()->drawHitBox(m_TopHB);
-    // TextureManager::GetInstance()->drawHitBox(m_BotHB);
-    // TextureManager::GetInstance()->drawHitBox(m_MidHB);
+    TextureManager::GetInstance()->drawHitBox(m_TopHB);
+    TextureManager::GetInstance()->drawHitBox(m_BotHB);
+    TextureManager::GetInstance()->drawHitBox(m_MidHB);
 }
 
 void Character::Clean() {
@@ -42,7 +42,6 @@ void Character::Clean() {
 
 void Character::Update(float dt) {
     // current states
-    dt = 10/60.0f;
     
     m_lastSafePosition.x = m_Transform->x;
     m_lastSafePosition.y = m_Transform->y;
@@ -57,7 +56,6 @@ void Character::Update(float dt) {
         SDL_Delay(250); 
     }
 
-    printf("%f\n", dt);
     // unset force
     m_RigidBody->SetGravity(30);
     m_RigidBody->UnSetForce();
@@ -200,6 +198,9 @@ void Character::Update(float dt) {
     m_TopHB->Set(m_Transform->x, m_Transform->y, m_Width, m_Height, m_scalar);
     m_BotHB->Set(m_Transform->x, m_Transform->y, m_Width, m_Height, m_scalar);
     m_MidHB->Set(m_Transform->x, m_Transform->y, m_Width, m_Height, m_scalar);
+    if (ColHandler::GetInstance()->CheckCollide(m_MidHB->Get(), m_PrincessHB)) {
+        Game::getInstance()->win = true;
+    }
     if (ColHandler::GetInstance()->CheckCollideMap(m_BotHB->Get(), 40, 40) && !m_isCheatMode) {
         m_Transform->x = m_lastSafePosition.x;
     }

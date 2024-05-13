@@ -13,6 +13,7 @@ class HitBox;
 #include "Collision.h"
 #include "HitBox.h"
 #include "Sound.h"
+#include "Game.h"
 
 #include "GameObject.h"
 
@@ -62,6 +63,7 @@ class Character : public GameObject
         HitBox* m_TopHB; 
         HitBox* m_MidHB;
         HitBox* m_BotHB;
+        SDL_Rect m_PrincessHB = {800, 300, 64, 56};
         Point m_lastSafePosition;
 };
 

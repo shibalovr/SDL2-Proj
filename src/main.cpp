@@ -2,7 +2,7 @@
 
 
 int main(int argc, char* arg[]) {
-    Game::getInstance()->init("Little dungeon", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0);
+    Game::getInstance()->init("Jump king", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0);
     Menu::getInstance()->load();
     Menu::getInstance()->PlayMenuMusic();
     while(Menu::getInstance()->isMenu) {
@@ -14,9 +14,12 @@ int main(int argc, char* arg[]) {
     while (!Game::getInstance()->quit) {
         Timer::getInstance()->Tick();
         Game::getInstance()->handleEvents();
-        Game::getInstance()->update();
+        if (!Game::getInstance()->win) {
+            Game::getInstance()->update();
+        }
         Game::getInstance()->render();
     }
+
     Game::getInstance()->clean();
     
     return 0;

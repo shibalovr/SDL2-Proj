@@ -51,6 +51,7 @@ void Menu::load() {
     TextureManager::GetInstance()->Load("play", "assets/menu/Play.png");
     TextureManager::GetInstance()->Load("quit", "assets/menu/Quit.png");
     TextureManager::GetInstance()->Load("resume", "assets/menu/Resume.png");
+    TextureManager::GetInstance()->Load("logo", "assets/menu/logo.png");
     TextureManager::GetInstance()->Load("bg", "assets/menu/bg.png");
     menu_musik = SoundManager::GetInstances()->LoadMusic("assets/sound/menu_loop.wav");
 }
@@ -66,6 +67,7 @@ void Menu::handleEvents() {
 void Menu::render() {
     SDL_RenderClear(Game::renderer);
     TextureManager::GetInstance()->draw("bg", 0, 0, 1200, 800);
+    TextureManager::GetInstance()->drawScale("logo", 600, 200 , 392, 111 , 1.5);
     TextureManager::GetInstance()->drawScale("play", p_OriginX, p_OriginY, p_Width, p_Height, p_scale);
     TextureManager::GetInstance()->drawScale("quit", q_OriginX, q_OriginY, q_Width, q_Height, q_scale);
     SDL_RenderPresent(Game::renderer);

@@ -37,10 +37,12 @@ public:
     void render();
     void clean();    
     void Quit();
+    void Win();
     static SDL_Renderer* renderer;
     int cnt = 0;
-    bool quit;
+    bool quit, win;
     bool menu;
+    bool endMusic;
 private:
     Game();
     ~Game() {
