@@ -56,7 +56,7 @@ void Game::init(const char* title, int xpos, int ypos, bool fullscreen) {
     SoundManager::GetInstances()->LoadChunk("bump", "assets/sound/bump.wav");
     SoundManager::GetInstances()->LoadChunk("land", "assets/sound/land.wav");
     SoundManager::GetInstances()->LoadChunk("press", "assets/sound/press.wav");
-    charac = new Character(new Properties("idle", 500, 3890, 32, 28, 2));
+    charac = new Character(new Properties("idle", 500, 3900, 32, 28, 2));
     Map::GetInstance()->LoadTileSets("assets/map/ts.png");
     Camera::GetInstance()->setTarget(charac->GetOrigin());
     ColHandler::GetInstance()->LoadCollider("assets/map/bg_wall.csv");

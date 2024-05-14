@@ -13,7 +13,7 @@ MSSV: 23021620
     - Giữ `Space` để nhảy
     - Kết hợp `a` hoặc `d` và `Space` để nhảy sang trái hoặc sang phải
     - Mục tiêu của người chơi là giải cứu cô công chúa ở trên đỉnh của toà tháp
-
+    - Người chơi có thể bật cheat mode bằng cách ấn phím `c`
 ## Các công cụ đã sử dụng:
     - C++, SDL2
     - Tiled - Dùng để tạo tile map
@@ -22,5 +22,5 @@ MSSV: 23021620
     - [Madsycode](https://www.youtube.com/playlist?list=PL-K0viiuJ2RctP5nlJlqmHGeh66-GOZR_)
     
 ## Điểm mong muốn: 9.0/10.0
-    - Hoàn thành được các tính năng như animation, âm thanh, xử lí va chạm, thêm menu,...
+    - Hoàn thành được các tính năng như animation, âm thanh,hit box, xử lí va chạm, thêm menu,...
 

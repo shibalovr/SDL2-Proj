@@ -7,7 +7,7 @@ Character::Character(Properties* props) : GameObject(props)
 {
     m_JumpTime = 0;
     m_FallTime = 0;
-    m_isCheatMode = true;
+    m_isCheatMode = false;
     m_isFalling = false;
     m_jumpMusic = false;    
     m_isJumping = false;
@@ -22,8 +22,8 @@ Character::Character(Properties* props) : GameObject(props)
     m_TopHB = new HitBox();
     m_MidHB = new HitBox();
     m_BotHB = new HitBox();
-    m_BotHB->SetBuffer(-10,-32,15,32); // Ground hitbox, wall hitbox
-    m_TopHB->SetBuffer(-10,0,15,32); // Ceil hitbox
+    m_BotHB->SetBuffer(-3,-32,6,32); // Ground hitbox, wall hitbox
+    m_TopHB->SetBuffer(-3,0,6,32); // Ceil hitbox
     m_MidHB->SetBuffer(0,-10, 0, 20);
     m_Animation->setProps(m_TextureId, 0, 1, 150);
     printf("Created character success!\n");
@@ -31,9 +31,6 @@ Character::Character(Properties* props) : GameObject(props)
 
 void Character::Draw(){
     m_Animation->Draw(m_Transform->x, m_Transform->y, m_Width, m_Height, m_scalar);
-    // TextureManager::GetInstance()->drawHitBox(m_TopHB);
-    // TextureManager::GetInstance()->drawHitBox(m_BotHB);
-    // TextureManager::GetInstance()->drawHitBox(m_MidHB);
 }
 
 void Character::Clean() {
