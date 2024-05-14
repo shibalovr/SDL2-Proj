@@ -26,8 +26,8 @@ class Camera {
             delete m_Target;
             delete s_Instance;
         }
-        Point* m_Target; // the middle point of the frame
-        Vector2d m_Position; // current start point of the camera;
+        Point* m_Target; 
+        Vector2d m_Position;
 
         SDL_Rect m_ViewBox;
 

@@ -10,10 +10,6 @@ class Map {
 
         void LoadMap(int mapLayersId, std::string path);
 
-        // void DrawMapLayer(std::vector<std::vector<int>> layer);
-
-        // void DrawMap();
-
         void Clean();
     private:
         int TileSetSize = 8;

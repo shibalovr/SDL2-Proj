@@ -23,7 +23,7 @@ class Timer {
 
     private:
         Timer() {
-            m_DeltaTime = 1/60.0f;
+            m_DeltaTime = 1/TARGET_FPS;
         }
         ~Timer() {
             delete s_Instance;

@@ -13,7 +13,6 @@ class Input {
         SDL_Event e;
         void Listen();
         bool GetKeyDown(SDL_Scancode key);
-        bool GetKeyUp(SDL_Scancode key);
         
     private:
         Input();
@@ -22,7 +21,6 @@ class Input {
             delete s_Instance;
         }
         
-        void KeyUp();
         void KeyDown();
         bool quit;
         const Uint8* m_KeyStates;

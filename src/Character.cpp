@@ -31,9 +31,9 @@ Character::Character(Properties* props) : GameObject(props)
 
 void Character::Draw(){
     m_Animation->Draw(m_Transform->x, m_Transform->y, m_Width, m_Height, m_scalar);
-    TextureManager::GetInstance()->drawHitBox(m_TopHB);
-    TextureManager::GetInstance()->drawHitBox(m_BotHB);
-    TextureManager::GetInstance()->drawHitBox(m_MidHB);
+    // TextureManager::GetInstance()->drawHitBox(m_TopHB);
+    // TextureManager::GetInstance()->drawHitBox(m_BotHB);
+    // TextureManager::GetInstance()->drawHitBox(m_MidHB);
 }
 
 void Character::Clean() {
@@ -150,6 +150,7 @@ void Character::Update(float dt) {
 
     // jump
     if (m_isJumping && m_JumpTime > 0 && !m_isCrouching) {
+        m_fallMusic = true;
         if (m_jumpMusic == false) {
             m_jumpMusic = true;
             SoundManager::GetInstances()->PlayChunk("jump");
@@ -213,8 +214,9 @@ void Character::Update(float dt) {
     m_MidHB->Set(m_Transform->x, m_Transform->y, m_Width, m_Height, m_scalar);
 
     if (ColHandler::GetInstance()->CheckCollideMap(m_BotHB->Get(), 40, 40) && !m_isCheatMode) {
-        if (m_isFalling) {
+        if (m_isFalling && m_fallMusic) {
             SoundManager::GetInstances()->PlayChunk("land");
+            m_fallMusic = false;
         }
         m_Transform->y = m_lastSafePosition.y;
         m_isGrounded = true;
@@ -228,7 +230,6 @@ void Character::Update(float dt) {
     } else {
         m_isGrounded = false;
     }
-    // m_Origin->Log();
     m_Origin->x = m_Transform->x + m_Width/2;
     m_Origin->y = m_Transform->y + m_Height/2;  
 

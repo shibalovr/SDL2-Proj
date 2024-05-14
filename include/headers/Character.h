@@ -55,7 +55,7 @@ class Character : public GameObject
         bool m_isGrounded, m_isJumping;
         float m_JumpTime, m_FallTime, m_DeadTime;
         float m_FallForce;
-        bool m_jumpMusic;
+        bool m_jumpMusic, m_fallMusic;
         bool m_isBounce, m_isDead;
         Direction curDirection = RIGHT; 
         Animation* m_Animation;

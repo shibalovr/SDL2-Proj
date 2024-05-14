@@ -23,10 +23,11 @@ void Input::Listen() {
                 Menu::getInstance()->isMenu = false;
                 break;
             case SDL_MOUSEBUTTONDOWN:
-                Menu::getInstance()->MouseDown();
+                if (Menu::getInstance()->isMenu) {
+                    Menu::getInstance()->MouseDown();
+                }
                 break;
             case SDL_KEYDOWN: KeyDown(); break;
-            case SDL_KEYUP: KeyUp(); break;
         }
     }
 }
@@ -34,10 +35,6 @@ void Input::Listen() {
 void Input::KeyDown() {
     m_KeyStates = SDL_GetKeyboardState(nullptr);
 }   
-
-void Input::KeyUp() {
-    m_KeyStates = SDL_GetKeyboardState(nullptr);
-}
 
 bool Input::GetKeyDown(SDL_Scancode key) {
     if (m_KeyStates[key] == 1) {

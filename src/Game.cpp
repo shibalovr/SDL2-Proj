@@ -77,6 +77,7 @@ void Game::render() {
     SDL_RenderClear(Game::renderer);
     Map::GetInstance()->LoadMap(0, "assets/map/bg_bg.csv");
     Map::GetInstance()->LoadMap(1, "assets/map/bg_wall.csv");
+    Map::GetInstance()->LoadMap(1, "assets/map/bg_obj.csv");
     TextureManager::GetInstance()->drawframe("princess", 800, 300, 32, 28, 0, 0, 2);
     charac->Draw();
     if (Game::getInstance()->win) {
